@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+
+
+
+.dark .top-logo {
+    filter: invert(12%) sepia(1%) saturate(1%) hue-rotate(1deg) brightness(1000%) contrast(80%);
+}
+
+.draggable {
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+}
+
+.ellipsis {
+    @apply overflow-hidden text-ellipsis whitespace-nowrap;
+}
+
+
+/* hide number indicator */
+@layer base {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-400;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+::-webkit-scrollbar-thumb {
+    transition: background-color 0.2s ease;
+}
+
+*,
+*::after,
+*::before {
+    -webkit-user-drag: none;
+    -webkit-app-region: no-drag;
+}
+
+/* Primevue */
+.p-float-label:has(input:focus) label,
+.p-float-label:has(input.p-filled) label,
+.p-float-label:has(input:-webkit-autofill) label,
+.p-float-label:has(textarea:focus) label,
+.p-float-label:has(textarea.p-filled) label,
+.p-float-label:has(.p-inputwrapper-focus) label,
+.p-float-label:has(.p-inputwrapper-filled) label {
+    top: -0.45rem;
+    left: 0.1rem;
+    font-size: 12px;
+}
+
+table.p-datepicker-calendar td {
+    @apply size-6 !p-0.5;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to
+{
+    opacity: 0;
+}
+
+.el-table .cell {
+    line-height: normal;
+}
+
+.el-table__footer * {
+    @apply font-mono;
+}
+
+
+
+
+.el-tour-buttons {
+    @apply flex items-center space-x-4;
+}
+
+.el-tour-buttons button {
+    @apply !w-full;
+}
+
+.el-tour__content {
+    @apply rounded-xl transition-all duration-300 ease-in-out;
+}
+
+.el-menu-item:hover {
+    @apply !text-gray-200;
+}
+.el-menu-item:not(.menu-title).is-active, .el-sub-menu-item.is-active{
+    @apply bg-gray-800;
+}
+
+.el-table__cell .cell{
+    @apply transition-all duration-500 ease-in-out;
+}
+
+*:focus:not(:focus-visible) {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+.p-dropdown.hide-arrow > .p-dropdown-trigger {
+    display: none !important;
+}
+
+.p-datepicker-header,
+.p-datepicker-buttonbar {
+    @apply dark:bg-gray-700;
+}
+
+*[role="tooltip"] {
+    z-index: 5000 !important;
+}

@@ -1,0 +1,6 @@
+@import "tailwind.css";
+@import "v-calendar/style.css";
+@import "element-plus/dist/index.css";
+@import "element-plus/theme-chalk/dark/css-vars.css";
+@import "primevue/resources/themes/aura-light-blue/theme.css";
+@import "custom.css";
