@@ -1,10 +1,10 @@
-import {ComputedRef, Ref, unref} from "vue";
+import {ComputedRef, unref} from "vue";
 import useVuelidate, {ErrorObject, Validation} from "@vuelidate/core";
 import utils from "@/helpers/utils.ts";
 
 export function useValidation() {
 
-    const getValidation: Ref<Validation> = (rule: ComputedRef, value: object) => {
+    const getValidation = (rule: ComputedRef, value: object): Validation => {
         return useVuelidate(rule, value)
     }
 
@@ -23,7 +23,6 @@ export function useValidation() {
     }
 
     const runFromValidation = async (validation: Validation, method: Function) => {
-        validation.value.$touch();
         validation.value.$validate().then(async (res) => {
             if (res) {
                 return await method()

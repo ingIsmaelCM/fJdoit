@@ -45,7 +45,7 @@ export default {
         { "cursor-default pointer-events-none opacity-60": context.disabled },
 
         // Interactivity
-        "cursor-pointer user-select-none",
+        "cursor-pointer eval-select-none",
       ],
     }),
     label: {
@@ -89,7 +89,7 @@ export default {
         { "cursor-default pointer-events-none opacity-60": context.disabled },
 
         // Interactivity
-        "cursor-pointer user-select-none",
+        "cursor-pointer eval-select-none",
       ],
     }),
     label: {
@@ -133,7 +133,7 @@ export default {
         { "cursor-default pointer-events-none opacity-60": context.disabled },
 
         // Interactivity
-        "cursor-pointer user-select-none",
+        "cursor-pointer eval-select-none",
       ],
     }),
     label: {
@@ -177,7 +177,7 @@ export default {
         { "cursor-default pointer-events-none opacity-60": context.disabled },
 
         // Interactivity
-        "cursor-pointer user-select-none",
+        "cursor-pointer eval-select-none",
       ],
     }),
     label: {

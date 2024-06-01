@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 export const useUserStore = defineStore("userStore", {
   state: () => ({
     user: sessionStorage.getItem("jdoitAuth")
-      ? JSON.parse(sessionStorage.getItem("jdoitAuth") as string)
+      ? (JSON.parse(sessionStorage.getItem("jdoitAuth") as string)).user
       : {},
   }),
 
@@ -10,7 +10,7 @@ export const useUserStore = defineStore("userStore", {
     getUser(state) {
       const cookieJdoit = sessionStorage.getItem("jdoitAuth");
       if (cookieJdoit) {
-        state.user = JSON.parse(cookieJdoit);
+        state.user = (JSON.parse(cookieJdoit)).user;
       } else {
         state.user = {};
       }

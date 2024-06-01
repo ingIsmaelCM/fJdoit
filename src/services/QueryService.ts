@@ -14,6 +14,7 @@ export interface IParams {
   search?: string;
   scopes?: string;
   like?: string;
+  notlike?: string;
   operation?: string;
 }
 
@@ -198,8 +199,13 @@ export default class QueryService {
     this._params.value.page && (this._params.value.page = 1);
     return this;
   }
-  like(term: string | null): QueryService {
-    this._params.value.like = term || "";
+  like(field: string, term: string | null, union:'and'|'ord'="and"): QueryService {
+    this._params.value.like = `${field}:${term || ""}:${union}`;
+    this._params.value.page && (this._params.value.page = 1);
+    return this;
+  }
+  notLike(field: string, term: string | null, union:'and'|'ord'="and"): QueryService {
+    this._params.value.notlike = `${field}:${term || ""}:${union}`;
     this._params.value.page && (this._params.value.page = 1);
     return this;
   }

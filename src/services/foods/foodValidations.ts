@@ -1,15 +1,15 @@
-import {computed} from "vue";
+import {computed, Ref} from "vue";
 import {useValidation} from "@/helpers/validation.ts";
 import {validators} from "@/helpers/i18n/validators.ts";
-import {ENutrientKey} from "@/interfaces/ModelInterfaces.ts";
+import {ENutrientKey, IFoodView} from "@/interfaces/ModelInterfaces.ts";
 
-export function useGetFoodValidations() {
+export function useGetFoodValidations(food: Ref<IFoodView>) {
     const {getValidation, runFromValidation} = useValidation();
-
+    const $vFoodRule = computed(() => getValidation(foodRule, food.value));
     const nutrientRules = [...(Object.keys(ENutrientKey).map((key: string) =>
         ({[key]: {minValue: validators.minValue(0)}})
     ))]
-    const ruleForCreateFood = computed(() =>
+    const foodRule = computed(() =>
         (Object.assign({
             name: {
                 required: validators.required,
@@ -26,5 +26,7 @@ export function useGetFoodValidations() {
         }, ...nutrientRules))
     );
 
-    return {ruleForCreateFood, getValidation, runFromValidation}
+
+
+    return {foodRule, $vFoodRule, runFromValidation}
 }

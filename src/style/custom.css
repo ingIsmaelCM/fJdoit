@@ -90,6 +90,10 @@ table.p-datepicker-calendar td {
     @apply font-mono;
 }
 
+.el-table__header tr th{
+    @apply !bg-primary text-gray-200;
+}
+
 
 
 
@@ -113,15 +117,25 @@ table.p-datepicker-calendar td {
 }
 
 .el-table__cell .cell{
-    @apply transition-all duration-500 ease-in-out;
+    @apply transition-all duration-500 ease-in-out ;
+}
+.el-table__cell:not(.is-leaf){
+    @apply !py-0;
 }
 
+.el-table__cell.is-leaf .cell{
+    @apply !flex !justify-between !items-center;
+}
+.cell.highlight, .el-tooltip__trigger{
+    @apply !text-accent;
+}
 *:focus:not(:focus-visible) {
     outline: 0 !important;
     box-shadow: none !important;
 }
 
-.p-dropdown.hide-arrow > .p-dropdown-trigger {
+.p-dropdown.hide-arrow > .p-dropdown-trigger,
+.p-multiselect.hide-arrow > .p-multiselect-trigger{
     display: none !important;
 }
 
@@ -130,6 +144,25 @@ table.p-datepicker-calendar td {
     @apply dark:bg-gray-700;
 }
 
+
+
 *[role="tooltip"] {
     z-index: 5000 !important;
 }
+
+.slide-in{
+    animation: onSlideIn .7s ease-in-out;
+}
+
+@keyframes onSlideIn {
+    0%{
+        transform: scale(95%);
+        opacity:0;
+    }
+
+    100%{
+        transform: scale(100%);
+        opacity:1;
+    }
+}
+

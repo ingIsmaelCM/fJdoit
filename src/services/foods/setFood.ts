@@ -1,6 +1,6 @@
 import FoodRepository from "@/repositories/FoodRepository.ts";
 import FoodFormatter from "@/formatter/FoodFormatter.ts";
-import {ref, Ref} from "vue";
+import { ref, Ref} from "vue";
 import {ENutrientKey, IFoodView} from "@/interfaces/ModelInterfaces.ts";
 import {useGetFoodValidations} from "@/services/foods/foodValidations.ts";
 
@@ -9,13 +9,13 @@ export function useSetFood(emit?: Function) {
     const foodFormatter = new FoodFormatter();
     const food: Ref<IFoodView> = ref(foodFormatter.init());
     const key = ref(0);
-    const {ruleForCreateFood, runFromValidation, getValidation} = useGetFoodValidations();
+    const {$vFoodRule, runFromValidation} = useGetFoodValidations(food);
 
 
-    const $vCreateFood = getValidation(ruleForCreateFood, food.value);
+
 
     const createFood = async () => {
-        await runFromValidation($vCreateFood, async () => {
+        await runFromValidation($vFoodRule.value, async () => {
             await foodRepo.save(food.value).then(() => {
                 food.value = foodFormatter.init();
                 key.value = new Date().getTime();
@@ -27,10 +27,12 @@ export function useSetFood(emit?: Function) {
     }
 
     const updateFood = async () => {
-        await foodRepo.update(food.value.id, food.value).then(() => {
-            key.value = new Date().getTime();
-            emit && emit("foodUpdated");
-        })
+        await runFromValidation($vFoodRule.value, async () => {
+            await foodRepo.update(food.value.id, food.value).then(() => {
+                key.value = new Date().getTime();
+
+            })
+        });
     }
 
     const initNutrient = () => {
@@ -47,7 +49,7 @@ export function useSetFood(emit?: Function) {
         key,
         createFood,
         updateFood,
-        $vCreateFood
+        $vFoodRule: $vFoodRule.value
     }
 
 }

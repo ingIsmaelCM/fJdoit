@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ff8f43;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
+        stroke-width: 0px;
+      }
+
+      .cls-1, .cls-2, .cls-4, .cls-7, .cls-6 {
+        display: none;
+      }
+
+      .cls-2, .cls-8 {
+        fill: #fff;
+      }
+
+      .cls-3, .cls-9 {
+        fill: #43515a;
+      }
+
+      .cls-4, .cls-10 {
+        fill: #000;
+      }
+
+      .cls-9, .cls-8, .cls-10 {
+        font-family: Lato-Bold, Lato;
+        font-size: 297.58px;
+        font-weight: 700;
+      }
+
+      .cls-5, .cls-6 {
+        fill: #2fb87d;
+      }
+    </style>
+  </defs>
+  <path class="cls-6" d="M-1811.89,138.21c12.45.2,24.86-.08,36.96-3.52,36.97-10.51,57.43-36,65.65-72.52,2.4-10.66,3.08-21.49,3.08-32.4-.04-49.89.03-99.77-.1-149.66,0-3.89.64-5.28,4.99-5.23,23.78.25,47.55.13,71.33.1,2.44,0,4.37-.29,4.34,3.44-.4,55.32,1.74,110.7-.83,165.95-4.07,87.52-61.03,148.18-142.7,160.97-14.17,2.22-28.4,3.1-42.72,2.43,0-23.19,0-46.38,0-69.57Z"/>
+  <rect class="cls-1" x="-1805.29" y="-190" width="69.98" height="258.47"/>
+  <g class="cls-7">
+    <text class="cls-8" transform="translate(-1629.52 93.58) scale(1.02 1)"><tspan x="0" y="0">DOIT</tspan></text>
+  </g>
+  <path class="cls-4" d="M-1811.89,1111.54c12.45.2,24.86-.08,36.96-3.52,36.97-10.51,57.43-36,65.65-72.52,2.4-10.66,3.08-21.49,3.08-32.4-.04-49.89.03-99.77-.1-149.66,0-3.89.64-5.28,4.99-5.23,23.78.25,47.55.13,71.33.1,2.44,0,4.37-.29,4.34,3.44-.4,55.32,1.74,110.7-.83,165.95-4.07,87.52-61.03,148.18-142.7,160.97-14.17,2.22-28.4,3.1-42.72,2.43,0-23.19,0-46.38,0-69.57Z"/>
+  <rect class="cls-4" x="-1805.29" y="783.33" width="69.98" height="258.47"/>
+  <g class="cls-7">
+    <text class="cls-10" transform="translate(-1629.52 1066.92) scale(1.02 1)"><tspan x="0" y="0">DOIT</tspan></text>
+  </g>
+  <path class="cls-2" d="M-1828.66,1578.21c12.45.2,24.86-.08,36.96-3.52,36.97-10.51,57.43-36,65.65-72.52,2.4-10.66,3.08-21.49,3.08-32.4-.04-49.89.03-99.77-.1-149.66,0-3.89.64-5.28,4.99-5.23,23.78.25,47.55.13,71.33.1,2.44,0,4.37-.29,4.34,3.44-.4,55.32,1.74,110.7-.83,165.95-4.07,87.52-61.03,148.18-142.7,160.97-14.17,2.22-28.4,3.1-42.72,2.43,0-23.19,0-46.38,0-69.57Z"/>
+  <rect class="cls-2" x="-1822.07" y="1250" width="69.98" height="258.47"/>
+  <g class="cls-7">
+    <text class="cls-8" transform="translate(-1646.29 1533.58) scale(1.02 1)"><tspan x="0" y="0">DOIT</tspan></text>
+  </g>
+  <g>
+    <path class="cls-5" d="M353.28,754.69c21.68.35,43.29-.13,64.36-6.13,64.38-18.31,100.01-62.69,114.32-126.29,4.17-18.56,5.37-37.43,5.36-56.43-.07-86.87.04-173.74-.17-260.61-.02-6.78,1.11-9.19,8.69-9.11,41.4.44,82.81.23,124.21.18,4.24,0,7.61-.51,7.56,5.99-.69,96.33,3.03,192.77-1.44,288.98-7.09,152.41-106.28,258.03-248.49,280.31-24.67,3.86-49.45,5.4-74.39,4.23,0-40.38,0-80.76-.01-121.14Z"/>
+    <rect class="cls-3" x="355.02" y="183.16" width="121.87" height="450.09"/>
+  </g>
+  <g class="cls-7">
+    <text class="cls-9" transform="translate(272.58 642.69) scale(1.02 1)"><tspan x="0" y="0">DOIT</tspan></text>
+  </g>
+  <image width="437" height="37" transform="translate(-1471.15 237.05)" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbYAAAAmCAYAAACoGL6HAAAACXBIWXMAAAsSAAALEgHS3X78AAABpElEQVR4nO3csZLSYBSG4e8AVmvh9XlH3pmFrYWVjYWdpQ3yW0Awy4677m4CzpnnmYEigUwa5p3Dn6SS5MPX9yPAq2z3d3nz812+fPqezx+/Zf/jbbb7u2wPSVLJ2GVkm5EkdUhtfiU5zI5w+hnW4fLQwDPsbn0C0E0lqbFJjaSmVo1jtur0ymzfvS8mydhc6UyhJ2GDpT0I1khGHbtVf/tQklEPtwHPJmxwDefxbBrhjm8VMYOlCRssavz5r/HeVDZyXE+r8/7SNFiFsMGSagrYxYR23jffrmywBqvUsJopYlPoLqc4YA3CBjfjsn5Yg7DBasbpnjSTGlyTNTZY3XxdbR64iuDB8kxscDWX62wuHoE17JK4lwYWULP3pwyTGqzmFDaDG7zWpuqf4jaSjBqPP4UEeDFFg6WMesFjsUQNliZssDStgpsSNgBaETYAWhE2AFoRNgBaETYAWhE2AFoRNgBaETYAWhE2AFoRNgBaETYAWhE2AFoRNgBaETYAWhE2AFoRNgBaETYAWhE2AFoRNgBaETYAWhE2AFoRNgAAgP/Vb0GzTTj7ZOd5AAAAAElFTkSuQmCC"/>
+</svg>

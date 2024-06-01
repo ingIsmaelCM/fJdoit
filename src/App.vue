@@ -23,8 +23,10 @@ import {onMounted} from "vue"
 import ProgressBar from 'primevue/progressbar';
 import es from "element-plus/dist/locale/es.mjs";
 import Toast from 'primevue/toast';
+import SocketService from "@/services/SocketService.ts";
 
 onMounted(async () => {
+  SocketService.getInstance().sendToChannel("events", {name: 'Ismael'});
 
 })
 </script>

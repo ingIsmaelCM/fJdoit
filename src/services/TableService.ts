@@ -15,7 +15,7 @@ function useTable(props: any) {
     const rowRef = ref();
     const rowForMetadata: any = ref({})
 
-    /* Trigger when user click on clickable cell */
+    /* Trigger when eval click on clickable cell */
     function onHeaderClick(row: any, col: any, cols: IColumns[]) {
         const currentCol = cols.find((c) => c.key == col.rawColumnKey);
         if (currentCol && currentCol.action) {

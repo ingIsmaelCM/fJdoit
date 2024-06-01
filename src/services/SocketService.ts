@@ -1,4 +1,4 @@
-import {io} from "socket.io-client";
+import {io, Socket} from "socket.io-client";
 import useUserStore from "@/stores/userStore";
 
 const socketUrl = import.meta.env.DEV
@@ -12,29 +12,29 @@ export interface SocketOptions {
     roles?: string | string[];
 }
 
-export default class Socket {
-    private static instance: Socket;
-    private socketIo: any;
+export default class SocketService {
+    private static instance: SocketService;
+    private socketIo: Socket;
 
     private constructor() {
         this.socketIo = io(socketUrl, {
             path: "/api/socket",
         });
         this.socketIo.connect();
-        Socket.instance = this;
+        SocketService.instance = this;
     }
 
     static getInstance() {
-        if (!Socket.instance) {
-            new Socket();
+        if (!SocketService.instance) {
+            new SocketService();
         }
-        return Socket.instance;
+        return SocketService.instance;
     }
 
     sendToChannel(
         channel: string,
         data: any,
-        options: SocketOptions,
+        options?: SocketOptions,
         cb?: Function
     ) {
         const content = {
@@ -46,9 +46,10 @@ export default class Socket {
     }
 
     getFromChannel(channel: string, cb?: Function) {
-        this.socketIo.off(channel).on(channel, (msg: any) => {
+        this.socketIo.on(channel+"-"+useUserStore().getUser.id, (msg: any) => {
             if (!cb) {
-                return ()=>{};
+                return () => {
+                };
             }
             return cb(msg)
         });

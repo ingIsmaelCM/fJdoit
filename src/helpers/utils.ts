@@ -79,6 +79,13 @@ export default {
         }
         return "$" + number.toLocaleString("en-US", {minimumFractionDigits: precision});
     },
+    formatNumber: (number: any, precision=2):number => {
+        number = parseFloat(number);
+        if (isNaN(number)) {
+            return 0.00;
+        }
+        return Number(number.toFixed(precision));
+    },
     uppercaseFirst(str: string) {
         return `${str[0].toUpperCase()}${str.substring(1)}`;
     },

@@ -22,7 +22,7 @@
     </template>
 
     <div class="p-2 pt-4 w-full flex justify-between items-center" v-if="title">
-      <h1 class="uppercase font-bold text-sm max-w-md ellipsis">
+      <h1 class="uppercase font-bold text-sm max-w-md ellipsis" v-if="title!==true">
         {{ query.unParsed.value.onlytrashed ? 'Papelera de Reciclaje' : title }}</h1>
       <div class="flex space-x-1 items-center " v-if=" selectionActions?.length">
         <el-dropdown trigger="click" :hideOnClick="false" placement="bottom-end">
@@ -78,7 +78,7 @@
       </div>
     </div>
     <div class="relative size-full overflow-hidden">
-      <el-table highlight-current-row v-loading="$global.getLoading" id="dataOnTable"
+      <el-table highlight-current-row id="dataOnTable"
                 empty-text="Sin Datos Para Mostrar" @row-contextmenu="openMetadata"
                 @cell-click="(row: any, col: any) => onHeaderClick(row, col, formatter.getCols())" :data="data"
                 :height="vHeight - 260" :max-height="vHeight - 260" :min-height="450"
@@ -149,7 +149,7 @@ interface IProps {
   query: QueryService;
   data: Array<any>;
   method: Function;
-  title?: string;
+  title?: string|boolean;
   hideFilters?: Boolean | string;
   rowClassName?: any;
   formatter: Formatter<any>,

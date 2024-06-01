@@ -9,13 +9,7 @@ export interface ILink {
 }
 
 const links: Array<ILink> = [
-    {
-        id: "1",
-        title: "Dashboard",
-        icon: "ic:round-home",
-        key: "home",
-        path: "/home"
-    },
+
     {
         id: "2",
         title: "Pacientes",
@@ -31,9 +25,16 @@ const links: Array<ILink> = [
             },
             {
                 id: "2-2",
-                title: "Consultar",
+                title: "Buscar",
                 icon: "ic:round-person-search",
                 path: "/patients",
+                key: "patients"
+            },
+            {
+                id: "2-3",
+                title: "Consultas",
+                icon: "maki:doctor",
+                path: "/patients/consults",
                 key: "patients"
             }
         ]
@@ -57,6 +58,13 @@ const links: Array<ILink> = [
                 icon: "ic:baseline-manage-search",
                 path: "/plans",
                 key: "plans"
+            },
+            {
+                id: "3-3",
+                title: "Plantillas",
+                icon: "tabler:template",
+                path: "/plans/templates",
+                key: "plans"
             }
         ]
     },
@@ -77,7 +85,7 @@ const links: Array<ILink> = [
             {
                 id: "4-2",
                 title: "Buscar",
-                icon: "ic:baseline-manage-search",
+                icon: "mdi:food-outline",
                 path: "/foods",
                 key: "foods"
             },
@@ -106,7 +114,7 @@ const links: Array<ILink> = [
             {
                 id: "5-2",
                 title: "Consultar",
-                icon: "ic:baseline-manage-search",
+                icon: "fluent:task-list-24-filled",
                 path: "/reminders",
                 key: "reminders"
             },

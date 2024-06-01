@@ -53,8 +53,10 @@ import PickList from 'primevue/picklist';
 import Listbox from 'primevue/listbox';
 import Tooltip from 'primevue/tooltip';
 import Badge from 'primevue/Badge';
-import Tag from "primevue/tag"
-import Chips from "primevue/chips"
+import Tag from "primevue/tag";
+import Chips from "primevue/chips";
+import ColumnGroup from 'primevue/columngroup';
+import Row from 'primevue/row';
 
 
 const primevue = (app: App<Element>) => {
@@ -110,6 +112,8 @@ const primevue = (app: App<Element>) => {
     app.component("Badge", Badge);
     app.component("Tag", Tag);
     app.component("Chips", Chips);
+    app.component("ColumnGroup ", ColumnGroup );
+    app.component("Row", Row);
 
     app.use(ToastService);
     app.use(DialogService);

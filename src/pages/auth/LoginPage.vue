@@ -1,16 +1,16 @@
 <template>
 
   <div
-      class="flex items-center justify-center rounded-xl shadow-xl w-full relative bg-gray-50 bg-cover"
+      class="flex flex-col md:flex-row items-center justify-center rounded-xl shadow-xl w-full relative bg-gray-50 bg-cover"
       :style="{backgroundImage:`url(${loginBg})`}"
   >
     <div
-        class="w-[44rem] h-[26rem] backdrop-blur-sm bg-secondary bg-opacity-10 overflow-hidden relative mt-8  rounded-xl flex">
-      <div class="w-[18rem] h-full flex justify-center items-center bg-secondary bg-opacity-10  overflow-hidden">
+        class="w-full md:w-[44rem] h-[26rem] backdrop-blur-sm bg-secondary bg-opacity-10 overflow-hidden relative mt-8  rounded-xl flex">
+      <div class="w-[18rem] h-full hidden md:flex justify-center items-center bg-secondary bg-opacity-10  overflow-hidden">
         <img :src="icon" alt="icon" class=" z-0 w-full scale-150 ml-4 ">
       </div>
 
-      <div class="w-[20rem] max-w-[20rem]  mx-auto  p-3 flex flex-col space-y-3">
+      <div class="w-full md:w-[20rem] md:max-w-[20rem] mx-4 md:mx-auto  p-3 flex flex-col space-y-3">
         <img :src="logo" alt="" class="h-24 mx-auto -my-2 scale-150">
         <h1 class="font-bold text-center text-xl uppercase">Acceder al Sistema</h1>
 

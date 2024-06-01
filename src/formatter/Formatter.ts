@@ -64,10 +64,10 @@ interface Formatter<T> {
                     return Number(item?item[dataKey]:0)
                 });
                 if (!isNaN(values.reduce((a, b) => a + b, 0))) {
-                    sums[index] = utils.formatMoney(
+                    sums[index] = utils.formatNumber(
                         col.sumAction?
                             Number(col.sumAction(items.filter((it:any)=>Boolean(it)))):
-                            Number(values.reduce((a, b) => a + b, 0).toFixed(1)),1
+                            Number(values.reduce((a, b) => a + b, 0).toFixed(2)),1
                     );
                 }
             } else {

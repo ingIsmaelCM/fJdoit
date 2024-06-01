@@ -5,12 +5,12 @@
   >
 
     <FloatLabel class="col-span-12 ">
-      <InputText id="name" v-model="food.name" class="w-full dark:bg-gray-700" :invalid="$vCreateFood.name.$error"/>
+      <InputText id="name" v-model="food.name" class="w-full dark:bg-gray-700" :invalid="$vFoodRule.name.$error"/>
       <label for="name"><sup class="text-red-400">*</sup>Nombre del alimento</label>
     </FloatLabel>
     <FloatLabel class="col-span-8">
       <Dropdown id="clientId" v-model="food.categoryId" :required="true" :options="categories" checkmark
-                optionValue="id" optionLabel="name" :dropdown-icon="undefined" :invalid="$vCreateFood.categoryId.$error"
+                optionValue="id" optionLabel="name" :dropdown-icon="undefined" :invalid="$vFoodRule.categoryId.$error"
                 @update:modelValue="$emit('onCategorySelect', food.categoryId)"
                 inputClass="  !w-full dark:bg-gray-700" class="!w-full dark:bg-gray-700 hide-arrow"
                 panelClass="dark:bg-gray-700" filter autoFilterFocus :loading="$global.getLoading"
@@ -23,10 +23,10 @@
     </FloatLabel>
     <FloatLabel class="col-span-4" v-for="field in Object.entries(ENutrientKey)">
       <InputNumber inputClass="!w-full dark:bg-gray-700" class="!w-full" :id="field[0]"
-                   :invalid="$vCreateFood[field[0]].$error"
+                   :invalid="$vFoodRule[field[0]].$error"
                    v-model="food[field[0]]" :min="0" :allowEmpty="false" locale="en-US"
                    mode="decimal" :min-fraction-digits="2" :max-fraction-digits="2"/>
-      <label for="finalRateMora">{{ field[1] }}</label>
+      <label :for="field[0]">{{ field[1] }}</label>
     </FloatLabel>
     <Button type="submit" severity="contrast"
             class="bg-soft hover:bg-opacity-80 text-gray-200 col-start-9 col-end-13"
@@ -53,7 +53,7 @@ const props = withDefaults(defineProps<IProps>(), {
 });
 
 const emit = defineEmits(["foodCreated", "foodUpdated"])
-const {food, $vCreateFood, createFood, updateFood} = useSetFood(emit);
+const {food, $vFoodRule, createFood, updateFood} = useSetFood(emit);
 const {onConfirmSubmit} = useConfirmService()
 const {getCategories, categories, query: catQuery} = useGetCategories();
 

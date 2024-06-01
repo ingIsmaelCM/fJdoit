@@ -72,7 +72,7 @@ export default {
       // Misc
       "cursor-pointer select-none text-decoration-none",
       "overflow-hidden",
-      "user-select-none",
+      "eval-select-none",
       "whitespace-nowrap",
     ],
   }),

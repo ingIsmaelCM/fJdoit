@@ -1,11 +1,20 @@
 export interface ICommonField {
-    id?: string;
+    id: string;
     createdBy?: string;
     updatedBy?: string;
     createdAt?: string;
     updatedAt?: string;
     deletedAt?: string;
 }
+
+export interface IDiet {
+    proteins: number;
+    carbohidrates: number;
+    fat: number;
+    maxFoods: number;
+    days: string[];
+}
+
 
 export interface IAddress extends ICommonField {
     line1: string;
@@ -33,6 +42,7 @@ export interface IEval extends ICommonField {
     cadera: number;
     gluteos: number;
     pantorrilla: number;
+    femorales: number;
     patientId: string;
     note: string;
     patient: IPatient
@@ -103,8 +113,29 @@ export interface IPatient extends ICommonField {
     name: string;
     lastname: string;
     fullname: string;
+    code: string;
     plans: IPlan[];
-    info: IInfo
+    info: IInfo,
+    province: string,
+    municipe: string,
+    evals: IEval[],
+    eval: IEval
+}
+
+
+export interface IPatientView extends IPatient {
+    email: string;
+    phone: string;
+    dni: string;
+    gender: EInfoGender;
+    infoType: EInfoType;
+    infoId: string;
+    note: string;
+    addressId: string;
+    line1: string;
+    line2: string;
+    provinceId: string;
+    municipeId: string;
 }
 
 export interface IPlan extends ICommonField {
@@ -118,6 +149,19 @@ export interface IPlan extends ICommonField {
     foods: IFood[]
 }
 
+export interface  IPlanView extends  IPlan{
+    patientName: string;
+    proteins: number;
+    calories: number;
+    fat: number;
+    carbohidrates: number;
+    realProteins: number;
+    realCalories: number;
+    realFat: number;
+    realCarbohidrates: number;
+
+}
+
 export enum EPlanType {
     Desayuno = "Desayuno",
     Merienda1 = "Merienda1",
@@ -127,12 +171,13 @@ export enum EPlanType {
 }
 
 export enum EPlanDay {
-    Lunes = "Lunes",
-    Martes = "Martes",
-    Miercoles = "Miércoles",
-    Jueves = "Jueves",
-    Viernes = "Viernes",
-    Sabado = "Sábado"
+    L = "Lunes",
+    M = "Martes",
+    X = "Miércoles",
+    J = "Jueves",
+    V = "Viernes",
+    S = "Sábado",
+    D = "Domingo",
 }
 
 export interface IPlanFood extends ICommonField {

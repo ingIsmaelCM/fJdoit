@@ -1,12 +1,12 @@
 <template>
 
-  <CustomDialog title="Actualizar Alimento" :key="key" >
+  <CustomDialog title="Actualizar Alimento" :key="key" @hide="foodUpdated" >
     <template #button>
       <Button severity="contrast" title="Actualizar alimento">
-        <Icon icon="carbon:edit" class="text-2xl"/>
+        <Icon icon="carbon:edit" class="text-lg"/>
       </Button>
     </template>
-    <FoodForm @foodUpdated="foodUpdated" action="Actualizar" :prev-food="prevFood"
+    <FoodForm  action="Actualizar" :prev-food="prevFood"
               confirmMessage="Confirme que desea actualizar el registro"/>
   </CustomDialog>
 </template>

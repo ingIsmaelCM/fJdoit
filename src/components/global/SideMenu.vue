@@ -1,81 +1,41 @@
 <template>
-  <div
-      class=" flex flex-col h-full overflow-hidden text-gray-300 bg-primary transition-all duration-300 ease-in-out relative">
-    <div class="fixed  z-20 text-gray-50 left- top-2 transform transition-all duration-300 ease-in-out "
-         :class="isCollapsed?'translate-x-[4.5rem]':'translate-x-[12.5rem]'">
-      <button link @click="toggleCollapse" class="!border-none">
-        <Icon :icon="isCollapsed?'ic:baseline-keyboard-arrow-right':'ic:baseline-keyboard-arrow-left'"
-              class="text-2xl"/>
-      </button>
+  <div class="w-full h-full bg-gray-50 overflow-hidden rounded-lg shadow-xl ">
+    <el-tabs type="border-card" class="!bg-transparent !h-full !border-none">
+      <el-tab-pane label="Principal">
+        <template #label>
+          <Icon icon="tdesign:app" class="text-2xl"/>
+        </template>
+        <div class="mb-12" v-for="link in links" :key="link.id">
+          <div class="flex items-center space-x-2 text-primary font-semibold01">
+            <div class=" w-1/5 border-t border-primary opacity-50"></div>
+            <span class="w-3/5 text-center">{{ link.title }}</span>
+            <div class="w-1/5 border-t border-primary opacity-50"></div>
+          </div>
+          <div class="p-2  flex items-center space-x-2">
+            <Button v-tooltip.bottom="child.title" v-for="child in link.childs" :key="child.id" link raised
+                    class="!w-16 !h-12 active:bg-primary text-dark" @click="()=>$router.push(child.path)"
+                    :class="child.path===$route.path?'!bg-primary !text-gray-200':''">
+              <template #icon>
+                <div class="h-full flex items-center">
+                  <Icon :icon="child.icon" class="text-3xl "/>
+                </div>
+              </template>
+            </Button>
 
-    </div>
-    <el-menu
-        :collapse="isCollapsed"
-        class="!select-none !border-none h-[2.5rem] "
-        background-color="primary"
-    >
-      <el-menu-item index="0" class="!pl-4 relative !overflow-hidden menu-title hover:!bg-transparent">
-        <img alt="logo" :src="logo" class="absolute left-0  w-full object-center scale-50
-         transform transition-all -translate-y-2 duration-300 ease-in-out"
-             :class="isCollapsed?'opacity-0':'opacity-100'"
-        />
-        <img alt="icon" :src="icon" class="absolute left-0 h-full w-full object-cover scale-75  -translate-y-2
-         transform transition-all duration-300 ease-in-out"
-             :class="isCollapsed?'opacity-100':'opacity-0'"
-        />
-      </el-menu-item>
-    </el-menu>
-    <hr>
-<!--    Main Menu-->
-    <el-menu
-        :collapse="isCollapsed"
-        :default-active="activeMenu"
-        class="!select-none !border-none el-menu-vertical-demo"
-        background-color="primary"
-        text-color="#ccc"
-        active-text-color="#94bbcd"
-        :unique-opened="true"
-
-    >
-      <template v-for="link in links" :key="link.id">
-        <el-sub-menu v-if="link.childs" :index="link.id">
-          <template #title>
-            <el-icon>
-              <Icon :icon="link.icon" class="text-2xl"/>
-            </el-icon>
-            <span>{{ link.title }}</span>
-          </template>
-          <el-menu-item v-for="child in link.childs" :index="child.id" class="" @click="$router.push(child.path!)">
-            <el-icon>
-              <Icon :icon="child.icon" class="text-2xl"/>
-            </el-icon>
-            <span>{{ child.title }}</span>
-          </el-menu-item>
-        </el-sub-menu>
-        <el-menu-item v-else :index="link.id" class="!pl-4" @click="$router.push(link.path!)">
-          <el-icon>
-            <Icon :icon="link.icon" class="text-2xl"/>
-          </el-icon>
-          <span>{{ link.title }}</span>
-        </el-menu-item>
-      </template>
-    </el-menu>
-    <el-menu
-        :collapse="isCollapsed"
-        default-active="9"
-        class="!select-none !w-full !border-r-0 !absolute !bottom-0 !border-t-2  "
-        background-color="--accent"
-        text-color="#94bbcd"
-        active-text-color="#134E4A"
-    >
-      <el-menu-item index="0" class="!pl-4 menu-title">
-        <el-icon>
-          <Icon icon="ic:round-account-circle" class="text-4xl"/>
-        </el-icon>
-        <span>Mi Cuenta</span>
-      </el-menu-item>
-    </el-menu>
-
+          </div>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="Notificaciones">
+        <template #label>
+          <Icon icon="mdi:bell-outline" class="text-2xl"/>
+        </template>
+      </el-tab-pane>
+      <el-tab-pane label="Estadísticas">
+        <template #label>
+          <Icon icon="mdi:chart-bar" class="text-2xl"/>
+        </template>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 
 
@@ -91,7 +51,7 @@ import links, {ILink} from "@/routes/links.ts"
 import {ref, computed} from "vue";
 import icon from "@/assets/icon-white.svg"
 import logo from "@/assets/logo-white.svg"
-import emitter from "@/services/emitter.ts";
+import emitter from "@/helpers/emitter.ts";
 import {useRoute} from "vue-router";
 
 
@@ -104,8 +64,8 @@ const toggleCollapse = () => {
 }
 
 const activeMenu = computed(() => {
-  const allLinks: ILink[]=[links, links.map((l:ILink)=>l.childs||[])].flat(2);
-  const activeLink = allLinks.find((link: ILink) => link.path === route.path );
+  const allLinks: ILink[] = [links, links.map((l: ILink) => l.childs || [])].flat(2);
+  const activeLink = allLinks.find((link: ILink) => link.path === route.path);
   return activeLink?.id || "1";
 })
 </script>

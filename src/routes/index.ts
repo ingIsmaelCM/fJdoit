@@ -1,5 +1,8 @@
 import {createRouter, createWebHistory, RouteLocation, RouteRecordRaw} from "vue-router";
 import AuthMiddleware from "@/middlewares/AuthMiddleware.ts";
+import {patientRoutes} from "@/routes/patients.ts";
+import {foodRoutes} from "@/routes/foods.ts";
+import {planeRoutes} from "@/routes/plans.ts";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -16,38 +19,21 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: "/home",
                 component: () => import("@/pages/HomePage.vue"),
-                name: "home"
-            },
-            {
-                path: "/foods",
-                name: "foods",
-                component: () => import("@/pages/foods/FoodPage.vue"),
+                name: "home",
                 meta: {
-                    key: "foods"
+                    title: "Dashboard"
                 }
             },
-            {
-                path: "/foods/new",
-                name: "foods_new",
-                component: () => import("@/pages/foods/FoodNew.vue"),
-                meta: {
-                    key: "foods"
-                }
-            },
-            {
-                path: "/foods/categories",
-                name: "categories",
-                component: () => import("@/pages/foods/CategoryPage.vue"),
-                meta: {
-                    key: "foods"
-                }
-            },
+            ...foodRoutes,
+            ...patientRoutes,
+            ...planeRoutes,
             {
                 path: "/:pathMatch(.*)*",
                 component: () => import("@/pages/NotFoundPage.vue"),
                 name: "notfounded",
                 meta: {
                     key: "notfound",
+                    title: "Página no encontrada"
                 },
             },
         ]

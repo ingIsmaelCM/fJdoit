@@ -14,7 +14,7 @@ export default abstract class BaseRepository<I extends {}> {
             useGlobalStore().setLoading(false);
             if (res.config.method !== 'get') {
                 utils.showNoti({
-                    title: res.data.title,
+                    title: res.data.title||'Operación realizada con éxito',
                     type: "success",
                     duration: 3000,
                     position: "bottom-right",

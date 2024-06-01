@@ -1,11 +1,11 @@
 <template>
-    <div  v-if="!disabled" class="w-max">
+    <div  v-if="!disabled">
         <span @click="openDialog = !openDialog"
             :class="{ 'pointer-events-none cursor-not-allowed opacity-65': disabled }">
             <slot name="button" />
         </span>
 
-        <Dialog @show="$emit('show')" v-model:visible="openDialog" :modal="!showBack" :header="title"
+        <Dialog @show="$emit('show')" @hide="$emit('hide')" v-model:visible="openDialog" :modal="!showBack" :header="title"
             :dismissable="false" v-bind="$attrs" :draggable="true" >
 
             <div class="">

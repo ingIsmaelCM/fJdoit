@@ -50,7 +50,7 @@ export default {
       "transition duration-200",
 
       // Misc
-      "user-none overflow-hidden",
+      "eval-none overflow-hidden",
       { "cursor-default pointer-events-none opacity-60": context.disabled },
     ],
   }),
@@ -85,7 +85,7 @@ export default {
       "transition duration-200",
 
       // Misc
-      "user-none overflow-hidden",
+      "eval-none overflow-hidden",
       { "cursor-default pointer-events-none opacity-60": context.disabled },
     ],
   }),
@@ -120,7 +120,7 @@ export default {
       "transition duration-200",
 
       // Misc
-      "user-none overflow-hidden",
+      "eval-none overflow-hidden",
       { "cursor-default pointer-events-none opacity-60": context.disabled },
     ],
   }),
@@ -155,7 +155,7 @@ export default {
       "transition duration-200",
 
       // Misc
-      "user-none overflow-hidden",
+      "eval-none overflow-hidden",
       { "cursor-default pointer-events-none opacity-60": context.disabled },
     ],
   }),
@@ -195,7 +195,7 @@ export default {
       "transition duration-200",
 
       // Misc
-      "user-none overflow-hidden",
+      "eval-none overflow-hidden",
       { "cursor-default pointer-events-none opacity-60": context.disabled },
     ],
   }),
