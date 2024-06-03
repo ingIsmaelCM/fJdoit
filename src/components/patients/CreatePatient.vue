@@ -46,6 +46,11 @@
       <label for="dni">Cédula/DNI</label>
     </FloatLabel>
     <FloatLabel class="col-span-6 ">
+      <Calendar id="dob" v-model="patient.dob" class="w-full dark:bg-gray-700"
+                 :invalid="$vPatient.note.$error" :max-date="new Date()"/>
+      <label for="dob">Fecha de Nac.</label>
+    </FloatLabel>
+    <FloatLabel class="col-span-12 ">
       <InputText id="note" v-model="patient.note" class="w-full dark:bg-gray-700"
                  :invalid="$vPatient.note.$error"/>
       <label for="note">Nota adicional</label>

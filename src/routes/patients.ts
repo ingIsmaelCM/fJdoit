@@ -1,6 +1,6 @@
 import {RouteRecordRaw} from "vue-router";
 
-export const patientRoutes: RouteRecordRaw[]=[
+export const patientRoutes: RouteRecordRaw[] = [
     {
         path: "/patients",
         name: "patients",

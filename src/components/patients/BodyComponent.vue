@@ -12,7 +12,9 @@
         <text x="50%" y="59%" class="cota-text !text-base font-bold ">{{ (eval?.height || 0.00) }}</text>
         <text x="50%" y="62.5%" class="cota-text !text-sm">cm</text>
         <line x1="50%" y1="0" x2="50%" y2="55%"  class="cota"/>
-        <line x1="50%" y1="65%" x2="50%" y2="100%" class="cota"/>
+        <line x1="50%" y1="65%" x2="50%" y2="90%" class="cota"/>
+        <text x="50%" y="93%" class="cota-text !text-base font-bold">{{ (eval?.weight || 0.00) }}</text>
+        <text x="50%" y="97%" class="cota-text !text-sm">kg</text>
 
       </svg>
     </div>
@@ -63,6 +65,5 @@ onMounted(async () => {
       }
     })
   }
-  console.log(measures.value)
 });
 </script>

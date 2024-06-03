@@ -19,7 +19,7 @@
         <label for="portion">Porción</label>
       </FloatLabel>
       <FloatLabel class="col-span-3">
-        <Dropdown v-model="newFood.day" :options="Object.values(EPlanDay)"
+        <Dropdown v-model="newFood.day" :options="Object.values(EPlanDay)" :disabled="lockday"
                   inputClass="!w-full" class="!w-full dark:bg-gray-700 hide-arrow" panelClass="dark:bg-gray-800"/>
         <label><sup class="text-red-400">*</sup>Día</label>
       </FloatLabel>
@@ -45,11 +45,17 @@
 import {ref, watch} from "vue";
 import {EPlanDay} from "@/interfaces/ModelInterfaces.ts";
 import {useGetFoods} from "@/services/foods";
-import useConfirmService from "@/services/ConfirmService.ts";
 import emitter from "@/helpers/emitter.ts";
 import utils from "@/helpers/utils.ts";
 
-const {onConfirmSubmit} = useConfirmService();
+interface IProps {
+  day?: EPlanDay,
+  lockday?: boolean,
+  plan?: Record<string, any>;
+}
+
+const props = defineProps<IProps>();
+
 const {foods, query, getFoods} = useGetFoods();
 
 const food = ref();
@@ -79,7 +85,8 @@ const initNewFood = () => {
 
 
 const initData = async () => {
-  query.order("priority").desc(true)
+  query.order("priority").desc(true);
+  props.day && (newFood.value.day = props.day)
   await getFoods();
 }
 
@@ -89,9 +96,9 @@ const onSearchFood = async ({value}: { value: string }) => {
 }
 const addFood = () => {
   if (newFood.value.portion && newFood.value.id && newFood.value.day) {
-    emitter.emit("addDiet", newFood.value);
-    food.value=null;
-    newFood.value={
+    emitter.emit("addDiet", {newFood: newFood.value, plan: props.plan});
+    food.value = null;
+    newFood.value = {
       name: "",
       id: "",
       portion: 0.5,

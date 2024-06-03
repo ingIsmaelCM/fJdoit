@@ -34,7 +34,7 @@ const links: Array<ILink> = [
                 id: "2-3",
                 title: "Consultas",
                 icon: "maki:doctor",
-                path: "/patients/consults",
+                path: "/evals",
                 key: "patients"
             }
         ]

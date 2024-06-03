@@ -2,7 +2,7 @@ import QueryService from "@/services/QueryService.ts";
 import PlanFormatter from "@/formatter/PlanFormatter.ts";
 import PlanRepository from "@/repositories/PlanRepository.ts";
 import {ref, Ref} from "vue";
-import {IPlan, IPlanView} from "@/interfaces/ModelInterfaces.ts";
+import { IPlanView} from "@/interfaces/ModelInterfaces.ts";
 import {AxiosResponse} from "axios";
 
 export  function  useGetPlans(){
@@ -12,13 +12,12 @@ export  function  useGetPlans(){
     const plans:Ref<IPlanView[]>=ref([]);
     const plan: Ref<IPlanView>=ref(planFormatter.init());
 
-    query.perpage(15).page(1).include("nutrient,patient,foodPlan.food.nutrient");
+    query.perpage(15).page(1).include("nutrient,patient,planfoods.food.nutrient");
 
     const getPlans=async ()=>{
-        planRepo.get(query.parsed.value).then(({data}:AxiosResponse)=>{
+        const {data}:AxiosResponse= await planRepo.get(query.parsed.value)
             plans.value=data.rows;
             query.setPagination(data)
-        })
     }
 
     return{

@@ -97,7 +97,7 @@
 
       </div>
     </div>
-    <div class="flex justify-end space-x-4">
+    <div class="flex justify-end items-center space-x-4">
       <AddNewFood/>
       <Button type="submit" severity="contrast" rounded
               class="text-primary hover:text-soft"

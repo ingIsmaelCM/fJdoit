@@ -1,12 +1,15 @@
 <template>
   <CustomDialog title="Actualizar Alimentos del Plan" @show="initData"
-                class="!w-[500px]" :key="key" @close="$emit('updatedPlanFood')">
+                 :key="key" @close="$emit('updatedPlanFood')">
     <template #button>
       <button severity="contrast" title="Actualizar paciente">
-        <Icon icon="carbon:edit" class="text-lg"/>
+        <Icon icon="carbon:edit" class="text-lg text-soft"/>
       </button>
     </template>
-    <div class="grid grid-cols-12 gap-x-2 gap-y-8 pt-6">
+    <div class="grid grid-cols-12 gap-x-2 gap-y-8 ">
+      <div class="col-span-12 flex justify-end">
+
+      </div>
       <template v-for="foodPlan in foodPlans" :key="foodPlan.id">
         <FloatLabel class="col-span-2">
           <InputNumber inputClass="!w-full dark:bg-gray-700" class="!w-full !px-0" :id="`portion${foodPlan.id}`"
@@ -21,7 +24,7 @@
                     inputClass="!w-full" class="!w-full dark:bg-gray-700 hide-arrow" panelClass="dark:bg-gray-800"/>
           <label :for="`foodId${foodPlan.id}`"><sup class="text-red-400">*</sup>Alimento</label>
         </FloatLabel>
-        <el-popconfirm :width="250" title="¿Deseas actualizar este registro?" @confirm="()=>updateFoodPlan(foodPlan)">
+        <el-popconfirm :width="250" title="¿Deseas actualizar este registro?" @confirm="()=>updatePlanFood(foodPlan)">
           <template #reference>
             <Button type="button" severity="contrast" rounded
                     class=""
@@ -32,7 +35,7 @@
             </Button>
           </template>
         </el-popconfirm>
-        <el-popconfirm :width="250" title="¿Deseas eliminar este registro?">
+        <el-popconfirm :width="250" title="¿Deseas eliminar este registro?" @confirm="()=>deletePlanFood(foodPlan.id)">
           <template #reference>
             <Button type="button" severity="contrast" rounded
                     class=""
@@ -50,20 +53,24 @@
 <script setup lang="ts">
 
 import {useGetFoods} from "@/services/foods";
-import {onMounted, Ref, ref} from "vue";
-import {useSetPlanFood} from "@/services/plans";
-interface IProps {
-  foodPlans: Record<string, any>[]
-}
-const props = defineProps<IProps>();
-const emit=defineEmits(["updatedPlanFood"])
+import {useSetPlanFood, useUnsetPlanFood} from "@/services/plans";
+import {IPlanView} from "@/interfaces/ModelInterfaces.ts";
 
+interface IProps {
+  foodPlans: Record<string, any>[],
+  plan: IPlanView
+}
+
+const props = defineProps<IProps>();
+const emit = defineEmits(["updatedPlanFood"])
 const {foods, query, getFoods} = useGetFoods();
 const {updatePlanFood, key} = useSetPlanFood(emit);
+const {deletePlanFood} = useUnsetPlanFood(emit)
 
 
 
 const initData = async () => {
+
   getFoods().then(() => {
     const prevFoods = props.foodPlans.map((fp: any) => ({
       ...fp,
@@ -79,12 +86,4 @@ const onSearchFood = async ({value}: { value: string }) => {
   query.search(value);
   await initData();
 }
-
-const updateFoodPlan = async (foodPlanToUpdate: Record<string, any>) => {
-  await updatePlanFood(foodPlanToUpdate)
-}
-onMounted(() => {
-
-})
-
 </script>

@@ -6,7 +6,7 @@
         <template #default="{ row }">
           <div class="flex justify-end items-center space-x-2 ">
             <template v-if="!row.deletedAt">
-              <button class="  !bg-transparent !border-none" circle title="Detalles"
+              <button class=" !bg-transparent !border-none" circle title="Detalles"
                       @click="$router.push({name:'patients_show',params:{id: row.id}})">
                 <Icon icon="carbon:touch-1" class="text-xl"/>
               </button>

@@ -3,6 +3,7 @@ import AuthMiddleware from "@/middlewares/AuthMiddleware.ts";
 import {patientRoutes} from "@/routes/patients.ts";
 import {foodRoutes} from "@/routes/foods.ts";
 import {planeRoutes} from "@/routes/plans.ts";
+import {evalRoutes} from "@/routes/evals.ts";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -27,6 +28,7 @@ const routes: Array<RouteRecordRaw> = [
             ...foodRoutes,
             ...patientRoutes,
             ...planeRoutes,
+            ...evalRoutes,
             {
                 path: "/:pathMatch(.*)*",
                 component: () => import("@/pages/NotFoundPage.vue"),

@@ -1,5 +1,5 @@
 <template>
-  <DataTable :value="diets" group-rows-by="day" row-group-mode="rowspan" size="small" 
+  <DataTable :value="diets" group-rows-by="day" row-group-mode="rowspan" size="small"
              scrollable scrollHeight="370px" tableStyle="width:100%" editMode="cell"
              @cell-edit-complete="onCellEditComplete" :key="diets.length">
     <Column field="day" header="Día" class="bg-primary !text-gray-200" body-class="!py-1">
@@ -49,21 +49,17 @@
         </div>
       </template>
     </Column>
-    <template #groupfooter="slotProps">
-      <div class=" font-bold w-full">Total Customers: {{ 20 }}</div>
-    </template>
   </DataTable>
 </template>
 <script setup lang="ts">
-import {computed, onMounted, ref, watch} from "vue";
+import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import SocketService from "@/services/SocketService.ts";
-import EditFoodPlan from "@/components/plans/EditFoodPlan.vue";
 import {useGetFoods} from "@/services/foods";
 import utils from "@/helpers/utils.ts";
 import emitter from "@/helpers/emitter.ts";
 
 const {foods, query: foodQuery, getFoods} = useGetFoods();
-const diets = ref([])
+const diets = ref(new Array(0))
 
 const initData = async () => {
   await getFoods();
@@ -75,23 +71,17 @@ const onSearchFood = async ({value}: { value: string }) => {
   await initData();
 }
 
-emitter.on("updatedDiets", (updatedDiet: any[]) => {
-  diets.value = updatedDiet;
-})
-emitter.on("addDiet", (newDiet: any) => {
-  const filteredDiet = diets.value.filter((d: any) => d.day === newDiet.day);
-  if (filteredDiet.length >= 5) {
-    utils.showNoti({
-      type: "error",
-      title: "Alimentos excedidos",
-      message: "En un día no se pueden añadir más de cinco alimentos",
-      position: "bottom-right",
-      duration: 3500
-    })
-  } else {
-    diets.value.push(newDiet)
-  }
-})
+const showError = (message: string) => {
+  utils.showNoti({
+    type: "error",
+    title: "No se pudo añadir",
+    message: message,
+    position: "bottom-right",
+    duration: 3500
+  })
+}
+
+
 const getTotal = (day: string) => {
   return computed(() => {
     let proteins = 0;
@@ -118,7 +108,7 @@ const removeFood = (food: any) => {
 }
 const onCellEditComplete = ({data, newData}: any) => {
   const dietIndex = diets.value.indexOf(data);
-  const newFood = foods.value.find((f: any) => f.id === newData.id)
+  const newFood: any = foods.value.find((f: any) => f.id === newData.id)
   if (dietIndex > -1) {
     diets.value[dietIndex] = {
       ...newData,
@@ -136,9 +126,27 @@ watch(() => diets.value, () => {
   deep: true
 })
 onMounted(() => {
+  emitter.on("updatedDiets", (updatedDiet: any) => {
+    diets.value = updatedDiet;
+  })
+  emitter.on("addDiet", ({newFood}: any) => {
+    const filteredDiet = diets.value.filter((d: any) => d.day === newFood.day);
+    if (filteredDiet.some((fd: any) => fd.id === newFood.id)) {
+      showError("Este alimento ya fue añadido");
+    } else if (filteredDiet.length >= 5) {
+      showError("En un día no se pueden añadir más de cinco alimentos")
+    } else {
+      diets.value.push(newFood)
+    }
+  })
   SocketService.getInstance().getFromChannel("planSuggestion", (data: any) => {
     diets.value = data;
     initData();
   })
+})
+
+onUnmounted(()=>{
+  emitter.off("updatedDiets");
+  emitter.off("addDiet");
 })
 </script>

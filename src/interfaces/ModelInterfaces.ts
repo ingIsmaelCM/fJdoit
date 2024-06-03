@@ -32,17 +32,6 @@ export interface ICategory extends ICommonField {
 export interface IEval extends ICommonField {
     weight: number;
     height: number;
-    cuello: number;
-    hombro: number;
-    pecho: number;
-    biceps: number;
-    triceps: number;
-    antebrazo: number;
-    cintura: number;
-    cadera: number;
-    gluteos: number;
-    pantorrilla: number;
-    femorales: number;
     patientId: string;
     note: string;
     patient: IPatient
@@ -114,6 +103,7 @@ export interface IPatient extends ICommonField {
     lastname: string;
     fullname: string;
     code: string;
+    dob: Date;
     plans: IPlan[];
     info: IInfo,
     province: string,

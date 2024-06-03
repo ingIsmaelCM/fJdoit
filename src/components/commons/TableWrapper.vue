@@ -13,7 +13,7 @@
                     showIcon showButtonBar iconDisplay="input" dateFormat="dd/mm/yy"/>
         </div>
         <div v-if="formatter.getFilterRange && hideFilters!=='filterDate'">
-          <Calendar v-model="range" :placeholder="'Filtrar por: ' + formatter.getFilterRange().label"
+          <Calendar v-model="range" :placeholder="'Rango de: ' + formatter.getFilterRange().label"
                     selectionMode="range" :manualInput="false" class="!w-[12.3rem] "
                     @update:model-value="filterRange(formatter.getFilterRange().field, query)" showIcon
                     showButtonBar iconDisplay="input" dateFormat="dd/mm/yy"/>
