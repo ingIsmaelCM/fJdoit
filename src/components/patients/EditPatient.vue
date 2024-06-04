@@ -7,7 +7,7 @@
         <Icon icon="carbon:edit" class="text-2xl"/>
       </Button>
     </template>
-    <form class="col-span-5 grid grid-cols-12 gap-x-4 gap-y-8 p-4 pt-8"
+    <form class="col-span-5 grid grid-cols-12 gap-x-4 gap-y-6 p-4 pt-8"
           @submit.prevent="(evt:any)=>onConfirmSubmit(evt, '¿Desea actualizar los datos del paciente?', updatePatient)">
       <FloatLabel class="col-span-6 ">
         <InputText id="name" v-model="patient.name" class="w-full dark:bg-gray-700" :invalid="$vPatient.name.$error"/>
@@ -54,6 +54,11 @@
         <label for="dni">Cédula/DNI</label>
       </FloatLabel>
       <FloatLabel class="col-span-6 ">
+        <Calendar id="dob" v-model="patient.dob" class="w-full dark:bg-gray-700"
+                  :invalid="$vPatient.note.$error" :max-date="new Date()"/>
+        <label for="dob">Fecha de Nac.</label>
+      </FloatLabel>
+      <FloatLabel class="col-span-12 ">
         <InputText id="note" v-model="patient.note" class="w-full dark:bg-gray-700"
                    :invalid="$vPatient.note.$error"/>
         <label for="note">Nota adicional</label>

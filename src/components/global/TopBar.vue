@@ -2,8 +2,7 @@
   <div class="flex items-center justify-between px-4 space-x-3 h-full">
 
     <div class="flex  space-x-3 items-center text-primary ">
-      <!--      <img alt="logo" :src="logo" class=" left-0 w-24  h-full object-center duration-300 ease-in-out"-->
-      <!--      />-->
+
       <button :disabled="!history.back" @click="$router.back()" class=" disabled:text-gray-400">
         <Icon icon="tabler:arrow-back-up" class="text-2xl"/>
       </button>
@@ -16,7 +15,10 @@
         <Icon icon="tabler:home" class="text-2xl hover:scale-105"/>
       </button>
       <div class="h-6 border border-gray-200"></div>
-      <h1>{{ $route.meta.title}}</h1>
+      <h1 class="w-48">{{ $route.meta.title}}</h1>
+    </div>
+    <div class="w-full h-full flex justify-end items-center">
+      <PatientSearch />
     </div>
     <el-dropdown trigger="click" :hide-on-click="false">
       <el-avatar :size="25" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"/>
@@ -55,6 +57,7 @@
 <script setup lang="ts">
 import {computed} from 'vue';
 import useAuthService from "@/services/AuthService.ts";
+import PatientSearch from "@/components/patients/PatientSearch.vue";
 
 const {logoutAuth} = useAuthService();
 const history = computed(() => {

@@ -18,7 +18,7 @@ export function useSetPlan() {
         fat: 0,
         carbohidrates: 0,
         maxFoods: 3,
-        days: Object.keys(EPlanDay),
+        days: Object.keys(EPlanDay).filter((d:string)=>!["D", "S"].includes(d)),
         notes:{}
     });
 
@@ -57,7 +57,7 @@ export function useSetPlan() {
                     fat: 0,
                     carbohidrates: 0,
                     maxFoods: 3,
-                    days: Object.keys(EPlanDay)
+                    days:Object.keys(EPlanDay).filter((d:string)=>!["D", "S"].includes(d))
                 }
             })
         }).then()

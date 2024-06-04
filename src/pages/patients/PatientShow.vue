@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import {onMounted} from "vue";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {useGetPatients} from "@/services/patients";
 import PatientDetail from "@/components/patients/PatientDetail.vue";
 import BodyComponent from "@/components/patients/BodyComponent.vue";

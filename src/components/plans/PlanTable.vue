@@ -41,14 +41,16 @@ import {useGetPlans, useSetPlanFood} from "@/services/plans";
 import EditFoodPlan from "@/components/plans/EditFoodPlan.vue";
 import AddNewFood from "@/components/plans/AddNewFood.vue";
 import emitter from "@/helpers/emitter.ts";
-import {onMounted, onUnmounted, ref} from "vue";
+import {onBeforeMount, onMounted, onUnmounted, ref} from "vue";
 import utils from "@/helpers/utils.ts";
 import PlanDetail from "@/components/plans/PlanDetail.vue";
+import {useRoute} from "vue-router";
 
 const {plans, query, planFormatter, getPlans} = useGetPlans();
 const key = ref(0);
 const {createPlanFood} = useSetPlanFood(() => {
 })
+const route = useRoute();
 
 const showError = (message: string) => {
   utils.showNoti({
@@ -80,6 +82,14 @@ onMounted(() => {
 
   });
 });
+
+
+onBeforeMount(() => {
+  const {query: routeQuery} = route;
+  if (routeQuery.type) {
+    query.replaceFilter("type", routeQuery.type, "eq", "and")
+  }
+})
 
 onUnmounted(() => {
   emitter.off("addDiet")

@@ -31,7 +31,7 @@ const data = computed(() => {
     labels: ["Prot.", "Grasa", "Carb."],
     datasets: [
       {
-        data: dataset,
+        data: dataset.map((n:number)=>n.toFixed(2)),
         backgroundColor: ["#0484ac", "#067889", "#5494ac"],
         hoverBackgroundColor: ["rgba(4,132,172,0.75)", "rgba(6,120,137,0.75)", "rgba(84,148,172,0.75)"]
       }

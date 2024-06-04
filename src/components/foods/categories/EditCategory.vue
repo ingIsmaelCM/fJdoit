@@ -1,9 +1,9 @@
 <template>
-  <CustomDialog title="Editar Categoría" @show="initCat" @hide="$emit('categoryUpdated')" class="!w-96" :key="key">
+  <CustomDialog title="Editar Categoría" @show="initCat" @hide="$emit('categoryUpdated')" :key="key">
     <template #button>
-      <Button severity="contrast" title="Nueva Categoría">
-        <Icon icon="carbon:edit" class="text-2xl"/>
-      </Button>
+      <button severity="contrast" title="Actualizar Categoría" class="py-1">
+        <Icon icon="carbon:edit" class="text-xl"/>
+      </button>
     </template>
     <form @submit.prevent="(evt:any)=>onConfirmSubmit(evt, '¿Confirma que desea editar el registro?',
   updateCategory)" class="grid grid-cols-3 gap-x-4 gap-y-8 mt-8">

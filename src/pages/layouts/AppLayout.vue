@@ -20,6 +20,14 @@
 <script setup lang="ts">
 import SideMenu from "@/components/global/SideMenu.vue";
 import TopBar from "@/components/global/TopBar.vue";
+import {onMounted} from "vue";
+import useUserStore from "@/stores/userStore.ts";
+import SocketService from "@/services/SocketService.ts";
 
 
+onMounted(async () => {
+
+
+
+})
 </script>

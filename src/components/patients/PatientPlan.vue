@@ -1,22 +1,23 @@
 <template>
-  <el-table :data="plans" height="100%" show-summary>
-    <el-table-column prop="type" label="Tipo" :width="100">
+  <el-table :data="plans" height="100%" show-summary :show-overflow-tooltip="true">
+    <el-table-column prop="type" label="Tipo" :width="90">
       <template #default="{row}">
         <div class="py-1.5">{{ row.type }}</div>
       </template>
     </el-table-column>
-    <el-table-column :width="70" prop="proteins" label="Prot."/>
-    <el-table-column :width="70" prop="carbohidrates" label="Carb."/>
-    <el-table-column :width="70" prop="calories" label="kCal."/>
-    <el-table-column :width="70" prop="fat" label="Grasa"/>
-    <el-table-column :width="80" fixed="right" >
-      <template #default="{ row }">
-        <div class="flex justify-end items-center space-x-2 ">
-          <el-popconfirm width="215" title="¿Generar Menú en PDF?" @confirm="()=>exportPdf(row)">
+    <el-table-column :width="72" prop="proteins" label="Prot."/>
+    <el-table-column :width="72" prop="carbohidrates" label="Carb."/>
+    <el-table-column :width="72" prop="calories" label="kCal."/>
+    <el-table-column :width="72" prop="fat" label="Grasa"/>
+    <el-table-column :width="72" fixed="right">
+      <template #header>
+        <div class="flex justify-end items-center space-x-2 " v-if="plans.length">
+          <el-popconfirm width="215" title="¿Generar Menú en PDF?"
+                         @confirm="()=>exportPdf(plans.at(0).patientId)">
             <template #reference>
               <button class="  !bg-transparent   !border-none" circle title="PDF">
                 <Icon icon="vscode-icons:file-type-pdf2"
-                      class="text-2xl text-primary"/>
+                      class="text-xl text-primary"/>
               </button>
             </template>
           </el-popconfirm>
@@ -24,7 +25,28 @@
             <template #reference>
               <button class="  !bg-transparent   !border-none" circle title="WhatsApp">
                 <Icon icon="logos:whatsapp-icon"
-                      class="text-2xl text-primary"/>
+                      class="text-xl text-primary"/>
+              </button>
+            </template>
+          </el-popconfirm>
+        </div>
+      </template>
+      <template #default="{ row }">
+        <div class="flex justify-end items-center space-x-2 ">
+          <el-popconfirm width="215" title="¿Generar Menú en PDF?" :key="'p'+row.id"
+                         @confirm="()=>exportPdf(row.patientId, [row.type])">
+            <template #reference>
+              <button class="  !bg-transparent   !border-none" circle title="PDF">
+                <Icon icon="vscode-icons:file-type-pdf2"
+                      class="text-xl text-primary"/>
+              </button>
+            </template>
+          </el-popconfirm>
+          <el-popconfirm width="250" title="¿Enviar menú por WhatsApp?" :key="'w'+row.id">
+            <template #reference>
+              <button class="  !bg-transparent   !border-none" circle title="WhatsApp">
+                <Icon icon="logos:whatsapp-icon"
+                      class="text-xl text-primary"/>
               </button>
             </template>
           </el-popconfirm>
@@ -43,5 +65,5 @@ interface IProps {
 
 defineProps<IProps>()
 
-const {exportPdf}=useExportPlan();
+const {exportPdf} = useExportPlan();
 </script>

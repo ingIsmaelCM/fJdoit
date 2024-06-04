@@ -57,6 +57,8 @@ import Tag from "primevue/tag";
 import Chip from "primevue/chip";
 import ColumnGroup from 'primevue/columngroup';
 import Row from 'primevue/row';
+import DataView from "primevue/dataview";
+import Skeleton from 'primevue/skeleton';
 
 
 const primevue = (app: App<Element>) => {
@@ -75,6 +77,7 @@ const primevue = (app: App<Element>) => {
     app.component("Dropdown", Dropdown);
     app.component("Paginator", Paginator);
     app.component("DataTable", DataTable);
+    app.component("DataView", DataView);
     app.component("Column", Column);
     app.component("SplitButton", SplitButton);
     app.component("Sidebar", Sidebar);
@@ -114,6 +117,7 @@ const primevue = (app: App<Element>) => {
     app.component("Chip", Chip);
     app.component("ColumnGroup ", ColumnGroup );
     app.component("Row", Row);
+    app.component("Skeleton", Skeleton);
 
     app.use(ToastService);
     app.use(DialogService);

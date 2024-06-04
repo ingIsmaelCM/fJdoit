@@ -70,4 +70,10 @@ export interface ISelectionAction{
     disabled?: boolean
 }
 
+export  enum  EWhatsappStatus{
+    pending="Pendiente",
+    qrCode="Enviando QR",
+    connected="Conectado",
+    cancelled="Cancelado"
+}
 
