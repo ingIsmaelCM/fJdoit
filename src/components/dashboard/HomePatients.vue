@@ -37,7 +37,7 @@
 import {useGetPatients} from "@/services/patients";
 import {onMounted} from "vue";
 
-const {patients, query, patientFormatter, getPatients} = useGetPatients();
+const {patients, query,  getPatients} = useGetPatients();
 
 onMounted(() => {
   query.limit(4).order("createdAt")

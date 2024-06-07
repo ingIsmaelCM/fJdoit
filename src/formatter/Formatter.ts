@@ -68,7 +68,7 @@ interface Formatter<T> {
                         col.sumAction?
                             Number(col.sumAction(items.filter((it:any)=>Boolean(it)))):
                             Number(values.reduce((a, b) => a + b, 0).toFixed(2)),1
-                    );
+                    ).toString();
                 }
             } else {
                 sums[index] = "";

@@ -18,7 +18,7 @@
             <div class="pt-8 grid grid-cols-12 gap-x-2 gap-y-5">
               <template v-for="(d) in diet.days">
                 <FloatLabel class="col-span-12">
-                  <Textarea v-model="diet.notes[EPlanDay[d]]" rows="2" cols="65" maxlength="250"
+                  <Textarea v-model="(diet as any).notes[EPlanDay[d]]" rows="2" cols="65" maxlength="250"
                             :auto-resize="false" :id="`note${d}`" class="resize-none w-full dark:bg-gray-700"/>
                   <label :for="`note${d}`">Nota para el {{ EPlanDay[d] }}</label>
                 </FloatLabel>
@@ -75,7 +75,7 @@
           <MultiSelect id="categoryIds" v-model="categoryIds" :options="categories" checkmark
                        optionValue="id" optionLabel="name" @update:modelValue="onCategorySelect"
                        inputClass="  !w-full dark:bg-gray-700" class="!w-full dark:bg-gray-700 hide-arrow"
-                       panelClass="dark:bg-gray-700" filter autoFilterFocus :loading="$global.getLoading"
+                       panelClass="dark:bg-gray-700" filter autoFilterFocus :loading="useGlobalStore().getLoading"
           />
           <label for="categoryIds">Categorías</label>
         </FloatLabel>
@@ -89,7 +89,7 @@
         <FloatLabel class="col-span-6">
           <Dropdown v-model="diet.patientId" :options="patients" filter :invalid="$vPlan.patientId.$error"
                     optionValue="id"
-                    optionLabel="fullname" @filter="(evt:any)=>$debounce(()=>onSearchPatient(evt),500)(evt)"
+                    optionLabel="fullname" @filter="(evt:any)=>utils.debounce(()=>onSearchPatient(evt),500)(evt)"
                     class="!w-full dark:bg-gray-700 hide-arrow" panelClass="dark:bg-gray-800" :autoFilterFocus="true">
           </Dropdown>
           <label for="proteins">Paciente</label>
@@ -131,6 +131,7 @@ import {onMounted, ref, Ref, watch} from "vue";
 import utils from "@/helpers/utils.ts";
 import {useGetPatients} from "@/services/patients";
 import AddNewFood from "@/components/plans/AddNewFood.vue";
+import useGlobalStore from "@/stores/globalStore.ts";
 
 const {onConfirmSubmit} = useConfirmService();
 const {$vSuggestions, $vPlan, diet, query, createPlan, getSuggestions} = useSetPlan();

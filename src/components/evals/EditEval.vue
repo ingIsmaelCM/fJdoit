@@ -11,7 +11,7 @@
       <FloatLabel class="col-span-6">
         <Dropdown v-model="evaluation.patientId" :options="patients" filter :invalid="$vEval.patientId.$error"
                   optionValue="id"
-                  optionLabel="fullname" @filter="(evt:any)=>$debounce(()=>onSearchPatient(evt),500)(evt)"
+                  optionLabel="fullname" @filter="(evt:any)=>utils.debounce(()=>onSearchPatient(evt),500)(evt)"
                   class="!w-full dark:bg-gray-700 hide-arrow" panelClass="dark:bg-gray-800" :autoFilterFocus="true">
         </Dropdown>
         <label for="proteins">Paciente</label>
@@ -50,6 +50,7 @@ import {useGetPatients} from "@/services/patients";
 import {useSetEval} from "@/services/evals";
 import useConfirmService from "@/services/ConfirmService.ts";
 import {IEval} from "@/interfaces/ModelInterfaces.ts";
+import utils from "@/helpers/utils.ts";
 
 interface IProps{
   prevEval: IEval

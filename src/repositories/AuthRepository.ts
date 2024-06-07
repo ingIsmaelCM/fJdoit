@@ -1,7 +1,7 @@
 import BaseRepository from "@/repositories/BaseRepository";
-import {IAuth} from "@/interfaces/AuthInterfaces.ts";
+import {IUser} from "@/interfaces/ModelInterfaces.ts";
 
-export default class AuthRepository extends BaseRepository<IAuth> {
+export default class AuthRepository extends BaseRepository<IUser> {
   endpoint: string = "auth";
 
 
@@ -17,7 +17,7 @@ export default class AuthRepository extends BaseRepository<IAuth> {
     });
   }
 
-  async resetPassword(data: IAuth){
+  async resetPassword(data: IUser){
     return this.safeRun(() => {
       return this.Api.put('auth/password/reset',data);
     });

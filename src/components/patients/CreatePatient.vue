@@ -95,7 +95,7 @@ import {useGetProvinces} from "@/services/provinces";
 
 const countryCode = ref("DO");
 const mask = ref("+1(999) 999-9999");
-const municipes = ref([]);
+const municipes: Ref<Record<string, any>[]> = ref([]);
 
 const {patient, $vPatient, createPatient} = useSetPatient();
 const {provinces, getProvinces} = useGetProvinces();
@@ -124,7 +124,7 @@ onMounted(() => {
 
 watch(() => patient.value.provinceId, (newVal: string) => {
   const province = provinces.value.find((prov: any) => prov.id === newVal);
-  patient.municipeId = '';
+  patient.value.municipeId = '';
   if (province) {
     municipes.value = province.municipes;
   }

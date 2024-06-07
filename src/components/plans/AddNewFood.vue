@@ -25,7 +25,7 @@
       </FloatLabel>
       <FloatLabel class="col-span-6">
         <Dropdown v-model="newFood.id" :options="foods" option-label="name" option-value="id"
-                  filter @filter="(evt:any)=>$debounce(()=>onSearchFood(evt),500)(evt)" :auto-filter-focus="true"
+                  filter @filter="(evt:any)=>utils.debounce(()=>onSearchFood(evt),500)(evt)" :auto-filter-focus="true"
                   inputClass="!w-full" class="!w-full dark:bg-gray-700 hide-arrow" panelClass="dark:bg-gray-800"/>
         <label><sup class="text-red-400">*</sup>Alimento</label>
       </FloatLabel>
@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 
-import {ref, watch} from "vue";
+import {Ref, ref, watch} from "vue";
 import {EPlanDay} from "@/interfaces/ModelInterfaces.ts";
 import {useGetFoods} from "@/services/foods";
 import emitter from "@/helpers/emitter.ts";
@@ -62,7 +62,7 @@ const food = ref();
 const getFromPortion = (portion: number, value: number): number =>
     Number((Number(portion) * Number(value)).toFixed(2));
 
-const newFood = ref({
+const newFood:Ref<Record<string, any>> = ref({
   name: "",
   id: "",
   portion: 0.5,

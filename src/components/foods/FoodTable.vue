@@ -50,7 +50,7 @@ import CreateFood from "@/components/foods/CreateFood.vue";
 import FoodDetail from "@/components/foods/FoodDetail.vue";
 
 interface IProps {
-  onQuery?: (query: QueryService) => {}
+  onQuery?: (query: QueryService) => void
 }
 
 const props = defineProps<IProps>()

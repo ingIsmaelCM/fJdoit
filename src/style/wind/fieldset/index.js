@@ -4,7 +4,7 @@ export default {
       "block",
 
       // Spacing
-      "px-5 md:px-6 py-5",
+      "p-2",
 
       // Shape
       "rounded-md rounded-lg",

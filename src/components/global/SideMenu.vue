@@ -13,7 +13,7 @@
           </div>
           <div class="p-2  flex items-center space-x-2">
             <Button v-tooltip.bottom="child.title" v-for="child in link.childs" :key="child.id" link raised
-                    class="!w-16 !h-12 active:bg-primary text-dark" @click="()=>$router.push(child.path)"
+                    class="!w-16 !h-12 active:bg-primary text-dark" @click="()=>$router.push(child.path!)"
                     :class="child.path===$route.path?'!bg-primary !text-gray-200':''">
               <template #icon>
                 <div class="h-full flex items-center">
@@ -41,31 +41,7 @@
 
 </template>
 
-<style>
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 190px;
-}
-</style>
+
 <script setup lang="ts">
-import links, {ILink} from "@/routes/links.ts"
-import {ref, computed} from "vue";
-import icon from "@/assets/icon-white.svg"
-import logo from "@/assets/logo-white.svg"
-import emitter from "@/helpers/emitter.ts";
-import {useRoute} from "vue-router";
-
-
-const route = useRoute();
-const isCollapsed = ref(false);
-
-const toggleCollapse = () => {
-  isCollapsed.value = !isCollapsed.value;
-  emitter.emit("onCollapseMenu", isCollapsed.value)
-}
-
-const activeMenu = computed(() => {
-  const allLinks: ILink[] = [links, links.map((l: ILink) => l.childs || [])].flat(2);
-  const activeLink = allLinks.find((link: ILink) => link.path === route.path);
-  return activeLink?.id || "1";
-})
+import links from "@/routes/links"
 </script>

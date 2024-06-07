@@ -32,7 +32,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {ref, onMounted} from "vue";
+import {ref, onMounted, Ref} from "vue";
 import "@/style/body.css";
 import body from "@/assets/static/body.ts";
 import parts from "@/assets/static/parts.ts";
@@ -42,7 +42,7 @@ interface IProps {
   eval?: IEval
 }
 
-const measures = ref([]);
+const measures: Ref<Record<string, any>[]> = ref([]);
 const selected = ref(null);
 const props = defineProps<IProps>();
 
@@ -61,7 +61,7 @@ onMounted(async () => {
     measures.value = measures.value.map((measure: any) => {
       return {
         ...measure,
-        value: props.eval[measure.name]
+        value: props.eval && props.eval[measure.name]
       }
     })
   }

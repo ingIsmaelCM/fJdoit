@@ -1,8 +1,7 @@
-import {CellConfig, jsPDF} from "jspdf";
+import { jsPDF} from "jspdf";
 import {useGetPlans} from "@/services/plans/getPlans.ts";
 import {EPlanDay, EPlanType} from "@/interfaces/ModelInterfaces.ts";
 import autoTable from 'jspdf-autotable'
-import logo from "@/assets/logo.jpg"
 import moment from "moment-timezone";
 
 export function useExportPlan() {
@@ -29,14 +28,14 @@ export function useExportPlan() {
                 3: {halign: 'left', valign: "middle", cellWidth: 80, minCellHeight: 15},
             },
             head: [[{
-                content: `${patient.fullname}\n ${patient.evals?.at(0)?.weight || 'N/D'}kg | ${getOld(patient.dob)}`,
+                content: `${patient?.fullname}\n ${patient?.evals?.at(0)?.weight || 'N/D'}kg | ${getOld(String(patient?.dob))}`,
                 styles: {
                     minCellHeight: 10, fontStyle: "bold", halign: "center", valign: "middle",
                     fillColor: "#eee", textColor: "#0484ac"
                 }
             },
                 ...Object.values(EPlanType).filter((t: string) =>
-                    ![EPlanType.Merienda1, EPlanType.Merienda2].includes(t)).map((type: string) => ({
+                    ![EPlanType.Merienda1, EPlanType.Merienda2].includes(<any>t)).map((type: string) => <any>({
                     content: type.toUpperCase(),
                     styles: {valign: "middle"}
                 }))
@@ -54,13 +53,13 @@ export function useExportPlan() {
     }
 
     const getData = async (patientId: string, types?: string[]) => {
-        types?.length > 0 && (query.replaceFilter("type", types?.join(","), "in", "and"))
+        types?.length && (query.replaceFilter("type", types?.join(","), "in", "and"))
         query.replaceFilter("patientId", patientId).limit(100);
         query.include("patient.eval,patient.evals,nutrient,planfoods.food.nutrient")
         await getPlans();
         const data = Object.values(EPlanDay).map((day: string) => {
             return [day.toUpperCase(), ...Object.values(EPlanType).filter((t: string) =>
-                ![EPlanType.Merienda1, EPlanType.Merienda2].includes(t)).map((type: string) => {
+                ![EPlanType.Merienda1, EPlanType.Merienda2].includes(<any>t)).map((type: string) => {
                 const filtered = plans.value.find((p: any) => p.day === day && p.type === type)
                 return filtered ?
                     filtered.planfoods.reduce((acc: string[], fp: any) => {
@@ -69,45 +68,8 @@ export function useExportPlan() {
                     }, []).join("\n") : ""
             })]
         })
-        return {data, patient: plans.value.at(0).patient};
+        return {data, patient: plans.value?.at(0)?.patient};
 
-    }
-    const getConfig = () => {
-        return {
-            headerBackgroundColor: "#0484ac",
-            headerTextColor: "#ffffff",
-            autoSize: false
-        }
-    }
-
-    const getHeaders: CellConfig[] = () => {
-        return [
-            {
-                id: "day",
-                name: "day",
-                prompt: "Día",
-                width: 40,
-                align: "center",
-                padding: 0,
-
-            },
-            {
-                id: "detail",
-                name: "detail",
-                prompt: "Detalles",
-                width: 165,
-                align: "left",
-                padding: 0
-            },
-            {
-                id: "note",
-                name: "note",
-                prompt: "Notas",
-                width: 60,
-                align: "center",
-                padding: 0
-            }
-        ]
     }
 
     return {

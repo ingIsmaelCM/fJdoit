@@ -117,7 +117,7 @@ const patientUpdated = () => {
 
 const countryCode = ref("DO");
 const mask = ref("+1(999) 999-9999");
-const municipes = ref([]);
+const municipes: Ref<Record<string, any>[]> = ref([]);
 
 const {patient, $vPatient, updatePatient} = useSetPatient();
 const {provinces, getProvinces} = useGetProvinces();
@@ -148,7 +148,7 @@ const initData = () => {
 
 watch(() => patient.value.provinceId, (newVal: string) => {
   const province = provinces.value.find((prov: any) => prov.id === newVal);
-  patient.municipeId = '';
+  patient.value.municipeId = '';
   console.log(provinces.value, newVal)
   if (province) {
     municipes.value = province.municipes;

@@ -87,7 +87,7 @@ onMounted(() => {
 onBeforeMount(() => {
   const {query: routeQuery} = route;
   if (routeQuery.type) {
-    query.replaceFilter("type", routeQuery.type, "eq", "and")
+    query.replaceFilter("type", String(routeQuery.type), "eq", "and")
   }
 })
 

@@ -1,10 +1,11 @@
-import {ComputedRef, unref} from "vue";
+import {ComputedRef, Ref, unref} from "vue";
 import useVuelidate, {ErrorObject, Validation} from "@vuelidate/core";
 import utils from "@/helpers/utils.ts";
+import {INotification} from "@/interfaces/AppInterfaces.ts";
 
 export function useValidation() {
 
-    const getValidation = (rule: ComputedRef, value: object): Validation => {
+    const getValidation = (rule: ComputedRef, value: object): Ref<Validation> => {
         return useVuelidate(rule, value)
     }
 
@@ -12,7 +13,7 @@ export function useValidation() {
         const message = errors.map((item: any) =>
             `<span style="white-space: nowrap">${item.$property}: ${item.$message}</span>`)
             .join("<br>");
-        const errorContent = {
+        const errorContent: INotification = {
             title: "Verifique los datos",
             message: message,
             type: "error",
@@ -22,7 +23,7 @@ export function useValidation() {
         utils.showNoti(errorContent)
     }
 
-    const runFromValidation = async (validation: Validation, method: Function) => {
+    const runFromValidation = async (validation: Ref<Validation>, method: Function) => {
         validation.value.$validate().then(async (res) => {
             if (res) {
                 return await method()

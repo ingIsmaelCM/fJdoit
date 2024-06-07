@@ -1,8 +1,7 @@
-import {EPlanDay, EPlanType, IDiet} from "@/interfaces/ModelInterfaces.ts";
+import {EPlanDay, IDiet} from "@/interfaces/ModelInterfaces.ts";
 import {computed, ComputedRef, Ref} from "vue";
 import {useValidation} from "@/helpers/validation.ts";
 import {validators} from "@/helpers/i18n/validators.ts";
-import {helpers} from "@vuelidate/validators";
 const {getValidation, runFromValidation} = useValidation();
 
 export function usePlanSuggestionValidation(diet: Ref<IDiet>) {

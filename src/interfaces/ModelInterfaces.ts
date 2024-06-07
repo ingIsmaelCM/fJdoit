@@ -149,6 +149,7 @@ export interface  IPlanView extends  IPlan{
     realCalories: number;
     realFat: number;
     realCarbohidrates: number;
+    planfoods: IPlanFood[]
 
 }
 

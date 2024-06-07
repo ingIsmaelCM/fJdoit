@@ -13,8 +13,8 @@
                 optionValue="id" optionLabel="name" :dropdown-icon="undefined" :invalid="$vFoodRule.categoryId.$error"
                 @update:modelValue="$emit('onCategorySelect', food.categoryId)"
                 inputClass="  !w-full dark:bg-gray-700" class="!w-full dark:bg-gray-700 hide-arrow"
-                panelClass="dark:bg-gray-700" filter autoFilterFocus :loading="$global.getLoading"
-                @filter="(evt:any)=>$debounce(onSearchCategory, 500)(evt)"/>
+                panelClass="dark:bg-gray-700" filter autoFilterFocus :loading="useGlobalStore().getLoading"
+                @filter="(evt:any)=>utils.debounce(onSearchCategory, 500)(evt)"/>
       <label for="clientId"><sup class="text-red-400">*</sup>Categoría</label>
     </FloatLabel>
     <FloatLabel class="col-span-4 ">
@@ -40,6 +40,8 @@ import {ENutrientKey, IFoodView} from "@/interfaces/ModelInterfaces.ts";
 import {onMounted} from "vue";
 import {useGetCategories, useSetFood} from "@/services/foods";
 import useConfirmService from "@/services/ConfirmService.ts";
+import utils from "@/helpers/utils.ts";
+import useGlobalStore from "@/stores/globalStore.ts";
 
 interface IProps {
   prevFood?: IFoodView;
@@ -52,7 +54,7 @@ const props = withDefaults(defineProps<IProps>(), {
   confirmMessage: "Confirme el registro de los datos"
 });
 
-const emit = defineEmits(["foodCreated", "foodUpdated"])
+const emit = defineEmits(["foodCreated", "foodUpdated", "onCategorySelect"])
 const {food, $vFoodRule, createFood, updateFood} = useSetFood(emit);
 const {onConfirmSubmit} = useConfirmService()
 const {getCategories, categories, query: catQuery} = useGetCategories();

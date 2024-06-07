@@ -16,6 +16,7 @@ import {i18n} from '@/helpers/i18n'
 
 const app = createApp(App);
 app.use(createPinia());
+init(app);
 primevue(app);
 component(app);
 app.directive("ripple", Ripple);
@@ -32,7 +33,6 @@ app.use(router);
 app.use(i18n)
 app.use(ElementPlus);
 
-init(app);
 
 app.mount("#app");
 

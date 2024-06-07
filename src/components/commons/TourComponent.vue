@@ -26,7 +26,7 @@ interface IProps {
 
 const props = defineProps<IProps>();
 const openTour = ref(false);
-const tour: Ref<TourInstance> = ref();
+const tour: Ref<TourInstance|unknown> = ref();
 const current = ref(0);
 
 const goNext = () => {

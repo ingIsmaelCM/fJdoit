@@ -6,7 +6,6 @@ import {EAxiosVerb} from "@/interfaces/AppInterfaces.ts";
 import {usePlanCreateValidation, usePlanSuggestionValidation} from "@/services/plans/planValidation.ts";
 import QueryService from "@/services/QueryService.ts";
 import emitter from "@/helpers/emitter.ts";
-import {AxiosResponse} from "axios";
 
 export function useSetPlan() {
     const planRepo = new PlanRepository();
@@ -25,8 +24,8 @@ export function useSetPlan() {
     const {$vSuggestions, runFromValidation} = usePlanSuggestionValidation(diet);
     const {$vPlan, runFromValidation: runForCreate} = usePlanCreateValidation(plan);
 
-    emitter.on("dietsChanged", (receivedDiets: any[]) => {
-        plan.value.foods = receivedDiets.map((rDiet: any) => ({
+    emitter.on("dietsChanged", receivedDiets => {
+        plan.value.foods = (<any[]>receivedDiets).map((rDiet: any) => <any> ({
             foodId: rDiet.id,
             portion: rDiet.portion,
             day: rDiet.day,
@@ -35,7 +34,7 @@ export function useSetPlan() {
     })
 
     const getSuggestions = async () => {
-        runFromValidation($vSuggestions.value, () => {
+        runFromValidation($vSuggestions.value, async() => {
             return planRepo.custom(`/plans/suggestions${query.parsed.value}`, EAxiosVerb.Post, {
                 ...diet.value,
                 days: diet.value.days.join("")
@@ -48,8 +47,8 @@ export function useSetPlan() {
     const createPlan = async () => {
         Object.assign(plan.value, diet.value);
         console.log(plan.value)
-        runForCreate($vPlan.value, () => {
-            return planRepo.save(plan.value).then(({data}: AxiosResponse) => {
+        runForCreate($vPlan.value, async () => {
+            return planRepo.save(plan.value).then(() => {
                 plan.value = planFormatter.init();
                 emitter.emit("updatedDiets", [])
                 diet.value = {

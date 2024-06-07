@@ -20,7 +20,7 @@
         <FloatLabel class="col-span-8">
           <Dropdown :id="`foodId${foodPlan.id}`" v-model="foodPlan.foodId" :options="foods" option-label="name"
                     option-value="id"
-                    filter @filter="(evt:any)=>$debounce(()=>onSearchFood(evt),500)(evt)" :auto-filter-focus="true"
+                    filter @filter="(evt:any)=>utils.debounce(()=>onSearchFood(evt),500)(evt)" :auto-filter-focus="true"
                     inputClass="!w-full" class="!w-full dark:bg-gray-700 hide-arrow" panelClass="dark:bg-gray-800"/>
           <label :for="`foodId${foodPlan.id}`"><sup class="text-red-400">*</sup>Alimento</label>
         </FloatLabel>
@@ -55,6 +55,7 @@
 import {useGetFoods} from "@/services/foods";
 import {useSetPlanFood, useUnsetPlanFood} from "@/services/plans";
 import {IPlanView} from "@/interfaces/ModelInterfaces.ts";
+import utils from "@/helpers/utils.ts";
 
 interface IProps {
   foodPlans: Record<string, any>[],

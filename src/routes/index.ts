@@ -4,6 +4,7 @@ import {patientRoutes} from "@/routes/patients.ts";
 import {foodRoutes} from "@/routes/foods.ts";
 import {planeRoutes} from "@/routes/plans.ts";
 import {evalRoutes} from "@/routes/evals.ts";
+import {profileRoutes} from "@/routes/profile.ts";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -29,6 +30,7 @@ const routes: Array<RouteRecordRaw> = [
             ...patientRoutes,
             ...planeRoutes,
             ...evalRoutes,
+            ...profileRoutes,
             {
                 path: "/:pathMatch(.*)*",
                 component: () => import("@/pages/NotFoundPage.vue"),

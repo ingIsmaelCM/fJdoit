@@ -5,7 +5,7 @@
       <div class="flex space-x-4 items-center justify-end h-10 my-1 z-50 ml-auto w-full">
         <InputText v-if="hideFilters!=='search'" type="search" class="!w-full !max-w-sm" placeholder="Buscar"
                    v-model="searchValue" id="searchOnTable"
-                   @input="()=>$debounce((search: string)=>query.search(search),500)(searchValue)"/>
+                   @input="()=>utils.debounce((search: string)=>query.search(search),500)(searchValue)"/>
         <div v-if="formatter.getFilterDate && hideFilters!=='filterDate'" id="filterDate">
           <Calendar v-model="date" :placeholder="'Filtrar por: ' + formatter.getFilterDate().label"
                     class="!w-[12.3rem]"
@@ -73,7 +73,7 @@
                   :class="query.unParsed.value.onlytrashed?'text-gray-700 dark:text-gray-100':'text-gray-300'"/>
           </template>
         </Button>
-        <tour-component name="tableTour" hint="¿Cómo ver y consultar datos?" :steps="steps"/>
+        <TourComponent name="tableTour" hint="¿Cómo ver y consultar datos?" :steps="steps"/>
 
       </div>
     </div>
@@ -124,9 +124,9 @@
         <h1 class="font-bold uppercase pb-2">Metadata</h1>
         <div class="grid grid-cols-3 w-96">
           <span>Creación: </span>
-          <span class="col-span-2">{{ moment(rowForMetadata.createdAt).format('DD/MM/YYYY h:mm:ss A') }} </span>
+          <span class="col-span-2">{{ moment((rowForMetadata as any).createdAt).format('DD/MM/YYYY h:mm:ss A') }} </span>
           <span>Actualización: </span>
-          <span class="col-span-2">{{ moment(rowForMetadata.updatedAt).format('DD/MM/YYYY h:mm:ss A') }} </span>
+          <span class="col-span-2">{{ moment((rowForMetadata as any).updatedAt).format('DD/MM/YYYY h:mm:ss A') }} </span>
         </div>
       </template>
     </el-tooltip>
@@ -143,6 +143,7 @@ import {ISelectionAction} from "@/interfaces/AppInterfaces.ts";
 import tableTour from "@/hints/tours/tableTour";
 import {computed,  useSlots} from "vue"
 import moment from "moment";
+import utils from "@/helpers/utils.ts";
 
 
 interface IProps {

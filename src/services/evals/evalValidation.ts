@@ -1,11 +1,11 @@
 import {useValidation} from "@/helpers/validation.ts";
-import {computed, ComputedRef} from "vue";
+import {computed,Ref} from "vue";
 import {validators} from "@/helpers/i18n/validators.ts";
 
 
 const {getValidation, runFromValidation} =useValidation();
 
-export function  useCreateEvalValidation(evaluation: ComputedRef<any>){
+export function  useCreateEvalValidation(evaluation: Ref<any>){
 
     const evalRule=computed(()=>({
         weight:{

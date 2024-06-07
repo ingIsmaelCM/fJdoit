@@ -1,5 +1,4 @@
-
-export default class  AuthMiddleware{
+export default class AuthMiddleware {
     static isAuth() {
         try {
             const auth = sessionStorage.getItem("jdoitAuth");
@@ -10,8 +9,18 @@ export default class  AuthMiddleware{
                 }
             }
             return false;
-        } catch (error) {
-            return false;
+        } catch (error: any) {
+            console.log(error)
+            return false
+        }
+    }
+
+    static hasPhone() {
+        try {
+
+        } catch (error: any) {
+            console.log(error)
+            return false
         }
     }
 }

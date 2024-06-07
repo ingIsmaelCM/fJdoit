@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, ref} from "vue";
+import {computed,} from "vue";
 import datalabel from "chartjs-plugin-datalabels"
 
 interface IProps {
@@ -19,9 +19,9 @@ const data = computed(() => {
   let dataset = props.plans.reduce((acc: number[], plan: Record<string, any>) =>
       (
           [
-            acc.at(0) + Number(plan.proteins),
-            acc.at(1) + Number(plan.fat),
-            acc.at(2) + Number(plan.carbohidrates),
+            acc.at(0)! + Number(plan.proteins),
+            acc.at(1)! + Number(plan.fat),
+            acc.at(2)! + Number(plan.carbohidrates),
           ]
       ), [0, 0, 0]);
   if(props.plans.length===0){

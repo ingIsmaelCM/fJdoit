@@ -10,7 +10,7 @@ function useTable(props: any) {
     const loading: Ref<boolean> = ref(false);
     const filterFields: Ref<Array<any>> = ref([]);
     const range: Ref<any> = ref(null);
-    const date: Ref<string> = ref("");
+    const date: Ref<Date|undefined> = ref();
     const showMetadata: Ref<boolean> = ref(false);
     const rowRef = ref();
     const rowForMetadata: any = ref({})

@@ -23,9 +23,9 @@
     </Column>
     <Column field="name" header="Alimento" class="whitespace-nowrap ellipsis !max-w-72 "
             header-class="bg-primary !text-gray-200 !py-1" body-class="!py-1">
-      <template #editor="{ data, field }">
+      <template #editor="{ data }">
         <Dropdown v-model="data.id" :options="foods" option-label="name" option-value="id"
-                  filter @filter="(evt:any)=>$debounce(()=>onSearchFood(evt),500)(evt)" :auto-filter-focus="true"
+                  filter @filter="(evt:any)=>utils.debounce(()=>onSearchFood(evt),500)(evt)" :auto-filter-focus="true"
                   inputClass="!w-full" class="!w-full dark:bg-gray-700 hide-arrow" panelClass="dark:bg-gray-800"/>
       </template>
     </Column>

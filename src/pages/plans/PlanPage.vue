@@ -6,8 +6,4 @@
 
 <script setup lang="ts">
 import PlanTable from "@/components/plans/PlanTable.vue";
-import {useRoute} from "vue-router";
-import {onBeforeMount} from "vue";
-
-
 </script>
