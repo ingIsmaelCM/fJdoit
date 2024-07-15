@@ -25,7 +25,10 @@
                   class="!w-7 dark:bg-gray-700 hide-arrow !border-none !ring-0 !px-0 !shadow-none !rounded-none"
                   panelClass="dark:bg-gray-800">
           <template #option="{option}">
-            <span class="fi" :class="`fi-${option.isoCode.toLowerCase()}`"></span>
+            <div class="flex space-x-2">
+              <span class="fi" :class="`fi-${option.isoCode.toLowerCase()}`"></span>
+              <span >{{(option as any).name}}</span>
+            </div>
           </template>
           <template #value="{value}">
             <span class="fi" :class="`fi-${value.toLowerCase()}`"></span>
@@ -148,8 +151,6 @@ const initData = () => {
 
 watch(() => patient.value.provinceId, (newVal: string) => {
   const province = provinces.value.find((prov: any) => prov.id === newVal);
-  patient.value.municipeId = '';
-  console.log(provinces.value, newVal)
   if (province) {
     municipes.value = province.municipes;
   }

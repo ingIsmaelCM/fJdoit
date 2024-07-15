@@ -1,3 +1,5 @@
+import userStore from "@/stores/userStore.ts";
+
 export default class AuthMiddleware {
     static isAuth() {
         try {
@@ -17,7 +19,8 @@ export default class AuthMiddleware {
 
     static hasPhone() {
         try {
-
+            const user=userStore().getUser;
+            return Boolean(user.phone);
         } catch (error: any) {
             console.log(error)
             return false

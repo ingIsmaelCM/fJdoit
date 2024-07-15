@@ -1,10 +1,12 @@
-import {createRouter, createWebHistory, RouteLocation, RouteRecordRaw} from "vue-router";
+import {createRouter, createWebHashHistory, RouteLocation, RouteRecordRaw} from "vue-router";
 import AuthMiddleware from "@/middlewares/AuthMiddleware.ts";
 import {patientRoutes} from "@/routes/patients.ts";
 import {foodRoutes} from "@/routes/foods.ts";
 import {planeRoutes} from "@/routes/plans.ts";
 import {evalRoutes} from "@/routes/evals.ts";
 import {profileRoutes} from "@/routes/profile.ts";
+import utils from "@/helpers/utils.ts";
+import {reminderRoutes} from "@/routes/reminders.ts";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -15,7 +17,8 @@ const routes: Array<RouteRecordRaw> = [
         path: "/",
         component: () => import("@/pages/layouts/AppLayout.vue"),
         meta: {
-            mustAuth: true
+            mustAuth: true,
+            mustPhone: true,
         },
         children: [
             {
@@ -31,6 +34,7 @@ const routes: Array<RouteRecordRaw> = [
             ...planeRoutes,
             ...evalRoutes,
             ...profileRoutes,
+            ...reminderRoutes,
             {
                 path: "/:pathMatch(.*)*",
                 component: () => import("@/pages/NotFoundPage.vue"),
@@ -51,7 +55,7 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
     routes,
-    history: createWebHistory()
+    history: createWebHashHistory()
 })
 
 router.beforeEach((to: RouteLocation, _from: RouteLocation, next: Function) => {
@@ -62,9 +66,21 @@ router.beforeEach((to: RouteLocation, _from: RouteLocation, next: Function) => {
     ) {
         return next("/auth/login");
     } else if (to.fullPath.includes('auth') && AuthMiddleware.isAuth()) {
+
         return next("/");
     } else {
+        if(to.meta.mustPhone && !AuthMiddleware.hasPhone()){
+            utils.showNoti(({
+                title: "Perfile Incompleto",
+                message: "Complete su perfil y añada su teléfono",
+                duration: 5000,
+                position: "bottom-right",
+                type: "error"
+            }))
+            return next("/profile");
+        }
         return next();
     }
 });
+
 export default router;

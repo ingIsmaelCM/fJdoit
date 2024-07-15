@@ -1,18 +1,23 @@
-
-
 <template>
   <div class="flex flex-col space-y-2 p-1.5 border shadow-lg rounded-lg h-[19.7rem]">
     <h1 class="p-1 text-lg font-[400]">Últimas Tareas</h1>
-    <div class="flex items-center justify-between space-x-2 !my-2" v-for="(task, index) in tasks" :key="task.id">
-      <div class=" rounded-lg shadow-lg p-1 w-8 mr-2" :class="index%2===0?'bg-primary text-gray-50':'text-primary bg-white'">
-        <Icon :icon="task.type==='Recurrente'?'fluent-mdl2:recurring-task':'material-symbols:task-alt-rounded'" class="text-2xl "/>
+    <div class="flex items-center justify-between space-x-2 !my-2" v-for="(reminder, index) in reminders"
+         :key="reminder.id">
+      <div class=" rounded-lg shadow-lg p-1 w-8 mr-2"
+           :class="index%2===0?'bg-primary text-gray-50':'text-primary bg-white'">
+        <Icon
+            :icon="reminder.type===EReminderType.recurrent?'fluent-mdl2:recurring-task':'material-symbols:task-alt-rounded'"
+            class="text-2xl "/>
       </div>
       <div class="flex flex-col justify-center w-full">
-        <h1 class="font-bold text-sm text-primary ellipsis w-44" v-tooltip="task.description">{{ task.title }}</h1>
-        <h1 class="font-normal text-xs ellipsis">{{ task.date }}</h1>
+        <h1 class="font-bold text-sm text-primary ellipsis w-44" v-tooltip="reminder.description">{{
+            reminder.title
+          }}</h1>
+        <h1 class="font-normal text-xs ellipsis">{{ moment(reminder.dueAt).format("D/M/Y h:m A") }}</h1>
       </div>
     </div>
-    <div class="flex items-center justify-between space-x-2 !my-2" v-for="skeleton in 5-tasks.length" :key="skeleton">
+    <div class="flex items-center justify-between space-x-2 !my-2" v-for="skeleton in 5-reminders.length"
+         :key="skeleton">
       <div class="w-12">
         <Skeleton width="2rem" height="2rem"/>
       </div>
@@ -26,36 +31,16 @@
 </template>
 
 <script setup lang="ts">
-  import {ref} from "vue";
+import {useGetReminder} from "@/services/reminders";
+import {onMounted} from "vue";
+import {EReminderStatus, EReminderType} from "@/interfaces/ModelInterfaces.ts";
+import moment from "moment-timezone";
 
-  const tasks=ref([
-    {
-      id: 1,
-      title: "Concertar cita con Juan",
-      description: "Llamar al paciente Juan para su cita semanal",
-      type: "Recurrente",
-      date:"2024-06-05 13:45:00"
-    },
-    {
-      id: 2,
-      title: "Programar dieta de María",
-      description: "Programar la dieta de matería luego de una consulta",
-      type: "Única",
-      date:"2024-06-05 13:45:00"
-    },
-    {
-      id: 3,
-      title: "Realizar evaluación mensual a Esteban",
-      description: "Realizar consulta y registrar la evaluación mensual de Esteban",
-      type: "Única",
-      date:"2024-06-05 13:45:00"
-    },
-    {
-      id: 4,
-      title: "Cita con Cristina",
-      description: "Cita no programada con cristina",
-      type: "Recurrente",
-      date:"2024-06-12 16:30:00"
-    }
-  ])
+const {query, reminders, getReminders} = useGetReminder();
+
+onMounted(() => {
+  query.limit(5).order("dueAt").replaceFilter("status", EReminderStatus.pending, "eq", "and");
+  getReminders()
+})
+
 </script>

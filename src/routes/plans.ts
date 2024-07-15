@@ -18,5 +18,14 @@ export  const planeRoutes: Array<RouteRecordRaw>=[
             key: "plans",
             title:"Creación de plan nutricional"
         }
+    },
+    {
+        path: "/plans/:id/pdf",
+        name: "plans_pdf",
+        component:()=>import("@/pages/plans/PlanMenu.vue"),
+        meta:{
+            key: "plans",
+            title:"Diseño del Menú"
+        }
     }
 ]

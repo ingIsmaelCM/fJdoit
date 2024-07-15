@@ -54,6 +54,8 @@ import Listbox from 'primevue/listbox';
 import Tooltip from 'primevue/tooltip';
 import Tag from "primevue/tag";
 import Chip from "primevue/chip";
+import Chips from 'primevue/chips';
+
 import ColumnGroup from 'primevue/columngroup';
 import Row from 'primevue/row';
 import DataView from "primevue/dataview";
@@ -115,6 +117,7 @@ const primevue = (app: App<Element>) => {
     app.component("Listbox", Listbox);
     app.component("Tag", Tag);
     app.component("Chip", Chip);
+    app.component("Chips", Chips);
     app.component("ColumnGroup ", ColumnGroup );
     app.component("Row", Row);
     app.component("Skeleton", Skeleton);

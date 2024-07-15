@@ -1,5 +1,5 @@
 <template>
-  <div class="w-1/3 h-full rounded-lg bg-sky-900 shadow-lg select-none relative overflow-hidden bg-no-repeat bg-top bg-cover"
+  <div class="w-full h-full rounded-lg bg-sky-900 shadow-lg select-none relative overflow-hidden bg-no-repeat bg-top bg-cover"
        :style="{backgroundImage: `url(${wave})`}"
   >
     <h1 class="font-bold text-white text-2xl text-center leading-6 mt-8 ">Gestiona tu cuenta de Whatsapp</h1>

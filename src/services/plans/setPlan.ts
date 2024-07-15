@@ -3,7 +3,7 @@ import PlanFormatter from "@/formatter/PlanFormatter.ts";
 import {ref, Ref} from "vue";
 import {EPlanDay, IDiet, IPlan} from "@/interfaces/ModelInterfaces.ts";
 import {EAxiosVerb} from "@/interfaces/AppInterfaces.ts";
-import {usePlanCreateValidation, usePlanSuggestionValidation} from "@/services/plans/planValidation.ts";
+import {usePlanCreateValidation, usePlanSuggestionValidation} from "@/services/validators/planValidation.ts";
 import QueryService from "@/services/QueryService.ts";
 import emitter from "@/helpers/emitter.ts";
 

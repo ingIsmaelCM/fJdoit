@@ -1,4 +1,6 @@
-export default {
+import {ITour} from "@/interfaces/AppInterfaces.ts";
+
+const tableTour: Record<string, ITour>= {
     data: {
         "target": "#dataOnTable",
         "title": "Listado de Datos",
@@ -37,3 +39,5 @@ export default {
             "a otra para cargar más resultados y modifica los parámetros de paginación según necesites."
     },
 }
+
+export  default  tableTour;

@@ -1,5 +1,5 @@
 <template>
-  <div class=" col-span-8 flex space-x-4 ">
+  <div class=" w-full flex space-x-4 ">
     <div v-for="image in images" class="w-1/3 h-56 flex flex-col justify-end bg-white overflow-hidden rounded-lg
       shadow-lg relative  ">
       <div class=" absolute left-0 top-0 size-full  z-0 bg-no-repeat blur-xs"

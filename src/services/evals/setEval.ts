@@ -1,7 +1,7 @@
 import EvalRepository from "@/repositories/EvalRepository.ts";
 import EvalFormatter from "@/formatter/EvalFormatter.ts";
 import {ref} from "vue";
-import {useCreateEvalValidation} from "@/services/evals/evalValidation.ts";
+import {useCreateEvalValidation} from "@/services/validators/evalValidation.ts";
 
 export function useSetEval(emit: Function) {
     const evalRepo = new EvalRepository();

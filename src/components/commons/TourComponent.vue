@@ -12,7 +12,9 @@
 
    />
   </el-tour>
-  <Hotkey v-if="openTour" :keys="[ 's']" @hotkey="goNext"/>
+  <Hotkey v-if="openTour" :keys="[ 'enter']" @hotkey="goNext"/>
+  <Hotkey v-if="openTour" :keys="[ 'backspace']" @hotkey="goPrev"/>
+  <Hotkey v-if="!openTour" :keys="[ 'f1']" @hotkey="openTour=true"/>
 </template>
 <script setup lang="ts">
 import {ref, Ref} from "vue";
@@ -40,4 +42,15 @@ const goNext = () => {
   }
 }
 
+const goPrev = () => {
+  console.log(props.steps.at(current.value - 1))
+  if (tour.value && openTour.value) {
+    if (current.value>0) {
+      current.value--;
+    } else {
+      openTour.value = false;
+      current.value = 0;
+    }
+  }
+}
 </script>

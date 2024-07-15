@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.main-body {
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    background-color: #eee;
+    @apply mx-auto p-4;
+}
+.ready-fix {
+    position: fixed !important;
+    top: 0;
+    left: 50%;
+    z-index: 9999;
+    -ms-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+}
+
+.meal-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+   box-shadow: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    color: #eee;
+    background-color: #0484ac;
+    position: relative;
+    overflow: hidden;
+}
+
+.meal-type::after {
+    content: "";
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    background-color: #eee;
+    left: -1rem;
+    transform: rotate(45deg);
+}
+
+.meal-type::before {
+    content: "";
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    background-color: #eee;
+    right: -1rem;
+    transform: rotate(45deg);
+}
+
+.day-name {
+    display: flex;
+    align-items: center;
+    padding-left: 7.5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #eee;
+    background-color: #0484ac;
+    position: relative;
+    overflow: hidden;
+}
+
+.day-name::before {
+    content: "";
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    background-color: #eee;
+    right: -1rem;
+    transform: rotate(45deg);
+}
+
+.meal-content{
+    width: 2rem;
+    height: 15rem;
+    background-color: #aaa;
+    padding: 5px;
+}

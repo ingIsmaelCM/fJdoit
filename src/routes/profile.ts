@@ -6,7 +6,8 @@ export const profileRoutes: RouteRecordRaw[]=[
         name: "profile",
         component:()=>import("@/pages/profile/ProfilePage.vue"),
         meta:{
-            title: "Perfil"
+            title: "Perfil",
+            mustPhone: false
         }
     }
 ]

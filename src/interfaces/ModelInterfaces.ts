@@ -190,11 +190,51 @@ export interface IUser extends ICommonField {
     username: string;
     password: string;
 }
+export interface  IUserView extends  IUser{
+    email: string;
+    phone: string;
+    dni: string;
+    gender: string;
+    infoType: EInfoType;
+    infoId: string;
+    note: string;
+    addressId: string;
+    line1: string;
+    line2: string;
+    provinceId: string;
+    municipeId: string;
+    municipe: string,
+    province: string,
+    provinceCode: string;
 
+}
 export enum ENutrientKey {
     calories = "Calorías",
     proteins = "Proteínas",
     carbohidrates = "Carbohidratos",
     fat = "Grasas",
     cholesterol = "Colesterol",
+}
+
+export enum EReminderType {
+    recurrent = "Recurrente",
+    oneTime = "Único"
+}
+
+export enum EReminderStatus {
+    pending = "Pendiente",
+    completed = "Completado",
+    canceled = "Cancelado"
+}
+export interface IReminder extends ICommonField {
+    title: string;
+    description: string;
+    tags: string;
+    type: EReminderType;
+    status: EReminderStatus;
+    dueAt: string;
+    day: any;
+    time: any;
+    dayName: string;
+    doneAt: Date;
 }

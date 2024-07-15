@@ -47,7 +47,7 @@ import logo from "@/assets/logo.svg"
 import icon from "@/assets/icon.svg"
 import loginBg from "@/assets/login-bg.svg"
 import {onMounted} from "vue"
-import useAuthService from '@/services/AuthService';
+import useAuthService from '@/services/auth/AuthService.ts';
 
 const {auth, loginAuth, getRemember} = useAuthService();
 onMounted(() => {

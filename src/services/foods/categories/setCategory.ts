@@ -2,7 +2,7 @@ import CategoryRepository from "@/repositories/CategoryRepository.ts";
 import CategoryFormatter from "@/formatter/CategoryFormatter.ts";
 import {computed, ref, Ref} from "vue";
 import {ICategory} from "@/interfaces/ModelInterfaces.ts";
-import {useCategoryValidation} from "@/services/foods/categories/categoryValidation.ts";
+import {useCategoryValidation} from "@/services/validators/categoryValidation.ts";
 
 export function useSetCategory(emit: Function) {
     const categoryRepo = new CategoryRepository();

@@ -2,7 +2,7 @@ import FoodRepository from "@/repositories/FoodRepository.ts";
 import FoodFormatter from "@/formatter/FoodFormatter.ts";
 import { ref, Ref} from "vue";
 import {ENutrientKey, IFoodView} from "@/interfaces/ModelInterfaces.ts";
-import {useGetFoodValidations} from "@/services/foods/foodValidations.ts";
+import {useGetFoodValidations} from "@/services/validators/foodValidations.ts";
 
 export function useSetFood(emit?: Function) {
     const foodRepo = new FoodRepository();

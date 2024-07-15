@@ -56,7 +56,7 @@
 </template>
 <script setup lang="ts">
 import {ref} from 'vue';
-import useAuthService from "@/services/AuthService.ts";
+import useAuthService from "@/services/auth/AuthService.ts";
 import PatientSearch from "@/components/patients/PatientSearch.vue";
 import useUserStore from "../../stores/userStore.ts";
 import {useRouter} from "vue-router";

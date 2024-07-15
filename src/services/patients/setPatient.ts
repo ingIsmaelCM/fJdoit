@@ -2,7 +2,7 @@ import PatientRepository from "@/repositories/PatientRepository.ts";
 import PatientFormatter from "@/formatter/PatientFormatter.ts";
 import {ref, Ref} from "vue";
 import {EInfoGender, IPatientView} from "@/interfaces/ModelInterfaces.ts";
-import {usePatientValidation} from "@/services/patients/patientValidations.ts";
+import {usePatientValidation} from "@/services/validators/patientValidations.ts";
 
 export function useSetPatient() {
     const patientRepo = new PatientRepository();

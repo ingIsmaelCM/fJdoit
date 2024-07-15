@@ -12,15 +12,11 @@
     <el-table-column :width="72" fixed="right">
       <template #header>
         <div class="flex justify-end items-center space-x-2 " v-if="plans.length">
-          <el-popconfirm width="215" title="¿Generar Menú en PDF?"
-                         @confirm="()=>exportPdf(plans.at(0).patientId)">
-            <template #reference>
-              <button class="  !bg-transparent   !border-none" circle title="PDF">
+              <button class="  !bg-transparent   !border-none" circle title="PDF"
+                      @click="$router.push({name:'plans_pdf', params:{id: plans.at(0).patientId} })">
                 <Icon icon="vscode-icons:file-type-pdf2"
                       class="text-xl text-primary"/>
               </button>
-            </template>
-          </el-popconfirm>
           <el-popconfirm width="250" title="¿Enviar menú por WhatsApp?">
             <template #reference>
               <button class="  !bg-transparent   !border-none" circle title="WhatsApp">
@@ -62,6 +58,8 @@ import {useExportPlan} from "@/services/plans";
 interface IProps {
   plans: any[]
 }
+
+
 
 defineProps<IProps>()
 

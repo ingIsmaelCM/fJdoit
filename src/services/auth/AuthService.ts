@@ -1,9 +1,9 @@
 import {Ref, ref} from "vue";
 import {useRouter} from "vue-router";
-import AuthRepository from "@/repositories/AuthRepository";
-import {useGlobalStore} from "@/stores/globalStore";
-import useUserStore from "@/stores/userStore";
-import {EAxiosVerb} from "@/interfaces/AppInterfaces";
+import AuthRepository from "@/repositories/AuthRepository.ts";
+import {useGlobalStore} from "@/stores/globalStore.ts";
+import useUserStore from "@/stores/userStore.ts";
+import {EAxiosVerb} from "@/interfaces/AppInterfaces.ts";
 
 function useAuthService() {
     const authRepo = new AuthRepository();
@@ -39,25 +39,6 @@ function useAuthService() {
         }
     };
 
-    const resetPassword = async () => {
-
-        await authRepo.resetPassword(auth.value);
-        await loginAuth();
-    }
-
-    const requestCode = async () => {
-        await authRepo.requestCode(auth.value.email);
-        recoverActiveIndex.value++;
-    }
-    const sendCode = async () => {
-        try {
-            const {data: {content}} = await authRepo.sendCode(auth.value.email, String(recoverCode.value));
-            auth.value.username = content.userAuth.username;
-            recoverActiveIndex.value++;
-        } catch (error) {
-            recoverCode.value = null;
-        }
-    }
     const saveRemember = () => {
         auth.value.remember
             ? localStorage.setItem("jdoitRemember", JSON.stringify(auth.value))
@@ -85,9 +66,6 @@ function useAuthService() {
         recoverCode,
         loginAuth,
         logoutAuth,
-        requestCode,
-        sendCode,
-        resetPassword,
         getRemember
     };
 }

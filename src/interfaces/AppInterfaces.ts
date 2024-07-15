@@ -77,3 +77,9 @@ export  enum  EWhatsappStatus{
     cancelled="Cancelado"
 }
 
+export interface  ITour{
+    target: string;
+    title: string;
+    description: string
+}
+
