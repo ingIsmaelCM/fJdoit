@@ -1,11 +1,24 @@
 <template>
   <div class="p-2">
     <TableWrapper :data="reminders" :query="query" :formatter="reminderFormatter" :method="getReminders"
-                  title="Recordatorios Agendados">
+                  title="Recordatorios Agendados" :key="id">
       <template #addButton>
-        <Button severity="contrast" title="Nuevo recordatorio" @click="$router.push({name:'reminders_new'})">
-          <Icon icon="ic:round-add-task" class="text-xl "/>
-        </Button>
+        <CustomDialog title="Registro de recordatorio">
+
+          <template #button>
+            <Button severity="contrast" title="Nuevo recordatorio">
+              <Icon icon="ic:round-add-task" class="text-xl "/>
+            </Button>
+          </template>
+          <CreateReminder @reminderCreated="getReminders"/>
+        </CustomDialog>
+      </template>
+      <template #before>
+        <el-table-column width="40">
+          <template #default="{row}">
+            <ReprogramReminder @reminderReprogrammed="getReminders" :oldReminder="row"/>
+          </template>
+        </el-table-column>
       </template>
       <template #after>
         <el-table-column prop="status" label="Status" :width="70" :filter-multiple="false" key="status"
@@ -16,17 +29,17 @@
                          }))">
           <template #default="{row}">
             <div class="flex justify-center">
-              <el-dropdown trigger="click" :hide-on-click="false" placement="bottom-end">
+              <el-dropdown trigger="click" :hide-on-click="false" placement="bottom-end" v-tooltip="row.status">
                 <div>
-                  <Icon :icon="statuses[row.status].icon" class="text-xl" :class="statuses[row.status].color"/>
+                  <Icon  :icon="statuses[row.status].icon" class="text-xl" :class="statuses[row.status].color"/>
                 </div>
                 <template #dropdown>
                   <el-dropdown-item v-for="status in Object.values(EReminderStatus).filter((e:any)=>e!==row.status)"
                                     @click="() => {}" :key="status">
                     <el-popconfirm width="300" :title="`¿Desea marcar el recordatorio como ${status}?`"
-                                   @confirm="()=>onChangeStatus(row.id, status)">
+                                   @confirm="()=>onChangeStatus(row.id, status)" >
                       <template #reference>
-                        <div class="flex space-x-1">
+                        <div class="flex space-x-1" >
                           <Icon :icon="statuses[status].icon" class="text-xl" :class="statuses[status].color"/>
                           <span :class="statuses[status].color"> {{ status }}</span>
                         </div>
@@ -44,12 +57,9 @@
           <template #default="{ row }">
             <div class="flex justify-end items-center space-x-2 ">
               <template v-if="!row.deletedAt">
-                <button class=" !bg-transparent !border-none" circle title="Detalles"
-                        @click="$router.push({name:'patients_show',params:{id: row.id}})">
-                  <Icon icon="carbon:touch-1" class="text-xl"/>
-                </button>
-                <EditReminder :old-reminder="row"/>
-                <el-popconfirm width="300" title="¿Desea eliminar este registro?">
+                <ReminderDetail :reminder="row"/>
+                <EditReminder :key="row.id" :old-reminder="row" @reminderUpdated="getReminders"/>
+                <el-popconfirm width="300" title="¿Desea eliminar este registro?" @confirm="()=>deleteReminder(row.id)">
                   <template #reference>
                     <button class="  !bg-transparent   !border-none" circle title="Eliminar">
                       <Icon icon="carbon:trash-can" class="text-xl text-red-300"/>
@@ -79,13 +89,17 @@
 
 <script setup lang="ts">
 
-import {useGetReminder, useSetReminder} from "@/services/reminders";
+import {useGetReminder, useSetReminder, useUnsetReminder} from "@/services/reminders";
 import {ref} from "vue";
 import {EReminderStatus} from "@/interfaces/ModelInterfaces.ts";
 import EditReminder from "@/components/reminders/EditReminder.vue";
+import CreateReminder from "@/components/reminders/CreateReminder.vue";
+import ReminderDetail from "@/components/reminders/ReminderDetail.vue";
+import ReprogramReminder from "@/components/reminders/ReprogramReminder.vue";
 
 const {reminders, query, reminderFormatter, getReminders} = useGetReminder();
 const {changeStatus} = useSetReminder();
+const {id, deleteReminder} = useUnsetReminder();
 
 const onChangeStatus = async (reminderId: string, status: EReminderStatus) => {
   await changeStatus(reminderId, status);

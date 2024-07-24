@@ -10,8 +10,7 @@
       </Button>
     </template>
     <form class="grid grid-cols-12 gap-x-4 gap-y-8 p-4 pt-8"
-          @submit.prevent="()=>{}"
-    >
+          @submit.prevent="()=>{}">
       <FloatLabel class="col-span-3">
         <InputNumber inputClass="!w-full dark:bg-gray-700" class="!w-full" id="portion"
                      v-model="newFood.portion" :min="0.5" :max="2.5" :allowEmpty="false" locale="en-US"
@@ -62,7 +61,7 @@ const food = ref();
 const getFromPortion = (portion: number, value: number): number =>
     Number((Number(portion) * Number(value)).toFixed(2));
 
-const newFood:Ref<Record<string, any>> = ref({
+const newFood: Ref<Record<string, any>> = ref({
   name: "",
   id: "",
   portion: 0.5,
@@ -102,7 +101,7 @@ const addFood = () => {
       name: "",
       id: "",
       portion: 0.5,
-      day: EPlanDay.L
+      day: newFood.value.day
     };
   } else {
     utils.showNoti({

@@ -2,7 +2,7 @@ export default {
   root: {
     class: [
       // Sizing and Shape
-      "min-w-[12rem]",
+      "min-w-[8rem]",
       "rounded-md",
       "shadow-md",
 
@@ -46,8 +46,8 @@ export default {
 
       // Hover States
       {
-        "hover:bg-gray-50 dark:hover:bg-gray-800": !context.active,
-        "hover:bg-gray-100 dark:hover:bg-black/40 text-gray-900 dark:text-gray-200/80":
+        "hover:bg-gray-200 dark:hover:bg-gray-800": !context.active,
+        "hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-200":
           context.active,
       },
 
@@ -69,7 +69,7 @@ export default {
 
       // Spacing
       "py-2",
-      "px-3",
+      "px-1",
 
       // Misc
       "no-underline",

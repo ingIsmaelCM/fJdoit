@@ -12,7 +12,7 @@ export function useGetReminder() {
     const reminders: Ref<IReminder[]> = ref([]);
     const reminder: Ref<IReminder> = ref(reminderFormatter.init());
 
-    query.page(1).perpage(15)
+    query.page(1).perpage(15).include("patient")
     const getReminders = async () => {
         await reminderRepo.get(query.parsed.value).then(({data}: AxiosResponse) => {
             reminders.value = data.rows;

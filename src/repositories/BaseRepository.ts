@@ -14,7 +14,7 @@ export default abstract class BaseRepository<I extends {}> {
             useGlobalStore().setLoading(false);
             if (res.config.method !== 'get') {
                 utils.showNoti({
-                    title: res.data.title||'Operación realizada con éxito',
+                    title: res.data.title || 'Operación realizada con éxito',
                     type: "success",
                     duration: 3000,
                     position: "bottom-right",
@@ -33,13 +33,14 @@ export default abstract class BaseRepository<I extends {}> {
         );
     }
 
-    async sendFile(endpoint: string, files: File[]): Promise<any> {
+    async sendFile(endpoint: string,  data: object): Promise<any> {
         return this.safeRun(async () => {
-            let data= new FormData();
-           files.forEach((file:File)=>{
-               data.append('files', file);
-           });
-           return  await this.Api.post(endpoint, data, {
+            console.log( data)
+            let formData = new FormData();
+            data && Object.keys(data).forEach((key: string) => {
+                formData.append(key, data[key]);
+            })
+            return await this.Api.post(endpoint, formData, {
                 headers: {
                     'Content-Type': `multipart/form-data`,
                 }

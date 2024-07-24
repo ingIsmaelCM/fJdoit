@@ -22,7 +22,7 @@ export  const planeRoutes: Array<RouteRecordRaw>=[
     {
         path: "/plans/:id/pdf",
         name: "plans_pdf",
-        component:()=>import("@/pages/plans/PlanMenu.vue"),
+        component:()=>import("@/pages/plans/PlanDetail.vue"),
         meta:{
             key: "plans",
             title:"Diseño del Menú"

@@ -17,36 +17,42 @@ export function useSetPlan() {
         fat: 0,
         carbohidrates: 0,
         maxFoods: 3,
-        days: Object.keys(EPlanDay).filter((d:string)=>!["D", "S"].includes(d)),
-        notes:{}
+        days: Object.keys(EPlanDay).filter((d: string) => !["D", "S"].includes(d)),
+        notes: {}
     });
 
     const {$vSuggestions, runFromValidation} = usePlanSuggestionValidation(diet);
     const {$vPlan, runFromValidation: runForCreate} = usePlanCreateValidation(plan);
 
     emitter.on("dietsChanged", receivedDiets => {
-        plan.value.foods = (<any[]>receivedDiets).map((rDiet: any) => <any> ({
+        plan.value.foods = (<any[]>receivedDiets).map((rDiet: any) => <any>({
             foodId: rDiet.id,
             portion: rDiet.portion,
             day: rDiet.day,
-            notes:{}
+            notes: {}
         }));
     })
 
     const getSuggestions = async () => {
-        runFromValidation($vSuggestions.value, async() => {
+        runFromValidation($vSuggestions.value, async () => {
             return planRepo.custom(`/plans/suggestions${query.parsed.value}`, EAxiosVerb.Post, {
                 ...diet.value,
                 days: diet.value.days.join("")
+            }).then((res: any) => {
+                return res;
             })
-                .then((res: any) => {
-                    return res;
-                })
+
         }).then()
     }
+
+    const sendWhatsapp = async (patientId: string, data: object) => {
+        planRepo.sendFile(`/plans/${patientId}/sendwhatsapp`, data)
+            .then((res: any) => {
+                return res;
+            })
+    }
     const createPlan = async () => {
-        Object.assign(plan.value, diet.value);
-        console.log(plan.value)
+        Object.assign(plan.value, diet.value);null
         runForCreate($vPlan.value, async () => {
             return planRepo.save(plan.value).then(() => {
                 plan.value = planFormatter.init();
@@ -56,7 +62,8 @@ export function useSetPlan() {
                     fat: 0,
                     carbohidrates: 0,
                     maxFoods: 3,
-                    days:Object.keys(EPlanDay).filter((d:string)=>!["D", "S"].includes(d))
+                    days: Object.keys(EPlanDay).filter((d: string) => !["D", "S"].includes(d)),
+                    notes: {}
                 }
             })
         }).then()
@@ -69,6 +76,7 @@ export function useSetPlan() {
         $vSuggestions: $vSuggestions.value,
         $vPlan: $vPlan.value,
         createPlan,
-        getSuggestions
+        getSuggestions,
+        sendWhatsapp
     }
 }

@@ -1,6 +1,9 @@
 <template>
-  <form class="w-full p-4"
+  <form class="w-full p-4 relative"
         @submit.prevent="(evt:any)=>onConfirmSubmit(evt, '¿Generar sugerencias?', handleSubmit)">
+    <div class="absolute right-0 -top-2">
+      <tour-component hint="Crear Plan Nutricional" :steps="Object.values(createPlanTour)"/>
+    </div>
     <div class="flex items-start space-x-2 pb-2 w-full">
       <div class="w-1/2 grid grid-cols-12 gap-x-4 gap-y-8">
         <h1 class="col-span-10 text-primary opacity-80 font-bold text-lg">Datos para el plan</h1>
@@ -68,8 +71,8 @@
       <div class="w-1/2 grid grid-cols-12 gap-x-4 gap-y-8 pt-14 mt-1">
         <FloatLabel class="col-span-4 flex items-center">
           <Dropdown v-model="omitCrude" :options="omitCrudeOptions" optionLabel="label" optionValue="value"
-                    class="!w-full dark:bg-gray-700 hide-arrow" panelClass="dark:bg-gray-800"/>
-          <label for="proteins">Filtrar Alimentos</label>
+                    class="!w-full dark:bg-gray-700 hide-arrow" panelClass="dark:bg-gray-800" id="omitCrude"/>
+          <label for="omitCrude">Filtrar Cruds</label>
         </FloatLabel>
         <FloatLabel class="col-span-8">
           <MultiSelect id="categoryIds" v-model="categoryIds" :options="categories" checkmark
@@ -79,28 +82,31 @@
           />
           <label for="categoryIds">Categorías</label>
         </FloatLabel>
-        <FloatLabel class="col-span-6">
-          <Dropdown v-model="diet.type" :options="Object.values(EPlanType)" filter :invalid="$vPlan.type.$error"
+        <FloatLabel class="col-span-4">
+          <Dropdown id="type" v-model="diet.type" :options="Object.values(EPlanType)" filter
+                    :invalid="$vPlan.type.$error"
                     class="!w-full dark:bg-gray-700 hide-arrow" panelClass="dark:bg-gray-800" :autoFilterFocus="true">
           </Dropdown>
-          <label for="proteins">Tipo de comida</label>
+          <label for="type">Tipo comida</label>
         </FloatLabel>
 
-        <FloatLabel class="col-span-6">
+        <FloatLabel class="col-span-8">
           <Dropdown v-model="diet.patientId" :options="patients" filter :invalid="$vPlan.patientId.$error"
-                    optionValue="id"
+                    optionValue="id" id="patientId"
                     optionLabel="fullname" @filter="(evt:any)=>utils.debounce(()=>onSearchPatient(evt),500)(evt)"
                     class="!w-full dark:bg-gray-700 hide-arrow" panelClass="dark:bg-gray-800" :autoFilterFocus="true">
           </Dropdown>
-          <label for="proteins">Paciente</label>
+          <label for="patientId">Paciente</label>
         </FloatLabel>
 
       </div>
     </div>
     <div class="flex justify-end items-center space-x-4">
-      <AddNewFood/>
-      <Button type="submit" severity="contrast" rounded
-              class="text-primary hover:text-soft"
+      <div id="addNewFood">
+        <AddNewFood/>
+      </div>
+      <Button type="submit" severity="contrast" rounded id="generateSuggestion"
+              class="text-sky-800 hover:text-sky-500"
               raised>
         <template #icon>
           <Icon icon="mdi:database-search-outline" class="text-2xl "/>
@@ -108,13 +114,15 @@
       </Button>
       <el-popconfirm :width="250" title="¿Deseas registrar este plan?" @confirm="createPlan">
         <template #reference>
-          <Button type="button" severity="contrast" rounded
-                  class="text-primary hover:text-soft"
-                  raised>
-            <template #icon>
-              <Icon icon="ic:baseline-save-all" class="text-2xl "/>
-            </template>
-          </Button>
+          <div>
+            <Button type="button" severity="contrast" rounded
+                    class="text-dark !hover:text-gray-700"
+                    raised>
+              <template #icon>
+                <Icon icon="ic:baseline-save-all" class="text-2xl "/>
+              </template>
+            </Button>
+          </div>
         </template>
       </el-popconfirm>
       <input type="submit" value="" class="hidden">
@@ -132,6 +140,7 @@ import utils from "@/helpers/utils.ts";
 import {useGetPatients} from "@/services/patients";
 import AddNewFood from "@/components/plans/AddNewFood.vue";
 import useGlobalStore from "@/stores/globalStore.ts";
+import {createPlanTour} from "@/hints/tours/planTour.ts";
 
 const {onConfirmSubmit} = useConfirmService();
 const {$vSuggestions, $vPlan, diet, query, createPlan, getSuggestions} = useSetPlan();

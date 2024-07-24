@@ -10,20 +10,23 @@ export default class ReminderFormatter extends Formatter<IReminder> {
                 key:"title",
                 dataKey: "title",
                 title: "Título",
-                width: 150
+                minWidth: 200
             },
             {
-                key:"description",
-                dataKey: "description",
-                title: "Descripción",
-                minWidth: 150
+                key:"patient",
+                dataKey: "patient",
+                title: "Paciente",
+                width: 150,
+                formatter:(row:IReminder)=>{
+                    return row.patient?.fullname||'N/D'
+                }
             },
             {
                 key:"dueAt",
                 dataKey: "dueAt",
                 title: "Fecha",
-                width: 175,
-                formatter: (_row:any, _col:any, val:string)=>moment(val).format("D/M/Y h:m A")
+                width: 150,
+                formatter: (_row:any, _col:any, val:string)=>moment(val).format("D/MM/YYYY H:m")
             }
         ];
     }

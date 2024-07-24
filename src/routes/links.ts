@@ -113,7 +113,7 @@ const links: Array<ILink> = [
             },
             {
                 id: "5-2",
-                title: "Consultar",
+                title: "Recordatorios",
                 icon: "fluent:task-list-24-filled",
                 path: "/reminders",
                 key: "reminders"

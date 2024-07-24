@@ -2,38 +2,52 @@ import ReminderRepository from "@/repositories/ReminderRepository.ts";
 import ReminderFormatter from "@/formatter/ReminderFormatter.ts";
 import {ref, Ref} from "vue";
 import {EReminderStatus, IReminder} from "@/interfaces/ModelInterfaces.ts";
-import {useCreateReminderValidation} from "@/services/validators/reminderValidation.ts";
+import {useCreateReminderValidation, useReprogramReminderValidation} from "@/services/validators/reminderValidation.ts";
 import moment from "moment-timezone";
 import {EAxiosVerb} from "@/interfaces/AppInterfaces.ts";
 
 
-export function useSetReminder() {
+export function useSetReminder(emit: (arg: string) => void) {
     const reminderRepo = new ReminderRepository();
     const reminderFormatter = new ReminderFormatter();
     const reminder: Ref<IReminder> = ref(reminderFormatter.init());
-
-    const days = ref([
-        {index: 0, name: "Domingo"},
-        {index: 1, name: "Lunes"},
-        {index: 2, name: "Martes"},
-        {index: 3, name: "Miércoles"},
-        {index: 4, name: "Jueves"},
-        {index: 5, name: "Viernes"},
-        {index: 6, name: "Sábado"},
-    ])
-
     const {runFromValidation, $vReminder} = useCreateReminderValidation(reminder)
+    const {$vReminder: $vReprogramReminder} = useReprogramReminderValidation(reminder)
+    const moveDateOnReprogram = ref(false)
+
+    function formattReminder() {
+       return{
+            ...reminder.value,
+            day: reminder.value.day && moment(reminder.value.day).format("D-MM"),
+            time: reminder.value.time && moment(reminder.value.time).format("H:mm"),
+            status: EReminderStatus.pending,
+            tags: (reminder.value.tags && reminder.value.tags.length > 0) ? reminder.value.tags.join(",") : null
+        }
+    }
 
     const createReminder = async () => {
         await runFromValidation($vReminder.value, async () => {
-            const newData = {
-                ...reminder.value,
-                day: reminder.value.day && moment(reminder.value.day).format("D-M"),
-                time: reminder.value.time && moment(reminder.value.time).format("H:m"),
-                status: EReminderStatus.pending
-            }
+            const newData = formattReminder();
             await reminderRepo.save(newData);
             reminder.value = reminderFormatter.init();
+            emit("reminderCreated")
+        })
+    }
+
+    const reprogramReminder = async (reminderId: string) => {
+
+        await runFromValidation($vReprogramReminder.value, async () => {
+            const newData = {...formattReminder(), moveDate: moveDateOnReprogram.value};
+            await reminderRepo.custom(`reminders/${reminderId}/reprogram`, EAxiosVerb.Put, newData);
+            emit("reminderReprogrammed")
+        })
+    }
+
+    const updateReminder = async () => {
+        await runFromValidation($vReminder.value, async () => {
+            const newData = formattReminder();
+            await reminderRepo.update(newData.id, newData);
+            emit("reminderUpdated")
         })
     }
 
@@ -46,9 +60,12 @@ export function useSetReminder() {
 
     return {
         reminder,
-        days,
+        moveDateOnReprogram,
         $vReminder: $vReminder.value,
+        $vReprogramReminder: $vReprogramReminder.value,
         createReminder,
+        updateReminder,
+        reprogramReminder,
         changeStatus
     }
 }

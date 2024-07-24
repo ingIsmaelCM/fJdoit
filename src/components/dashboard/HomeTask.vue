@@ -6,7 +6,7 @@
       <div class=" rounded-lg shadow-lg p-1 w-8 mr-2"
            :class="index%2===0?'bg-primary text-gray-50':'text-primary bg-white'">
         <Icon
-            :icon="reminder.type===EReminderType.recurrent?'fluent-mdl2:recurring-task':'material-symbols:task-alt-rounded'"
+            icon="material-symbols:task-alt-rounded"
             class="text-2xl "/>
       </div>
       <div class="flex flex-col justify-center w-full">
@@ -33,7 +33,7 @@
 <script setup lang="ts">
 import {useGetReminder} from "@/services/reminders";
 import {onMounted} from "vue";
-import {EReminderStatus, EReminderType} from "@/interfaces/ModelInterfaces.ts";
+import {EReminderStatus} from "@/interfaces/ModelInterfaces.ts";
 import moment from "moment-timezone";
 
 const {query, reminders, getReminders} = useGetReminder();

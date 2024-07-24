@@ -6,8 +6,6 @@ import {validators} from "@/helpers/i18n/validators.ts";
 const {getValidation, runFromValidation} = useValidation();
 
 export function useCreateReminderValidation(reminder: Ref<IReminder>) {
-
-
     const reminderValidation = computed(() => ({
         title: {
             required: validators.required
@@ -15,7 +13,27 @@ export function useCreateReminderValidation(reminder: Ref<IReminder>) {
         description: {
             required: validators.required
         },
-        type: {
+        day: {
+            required: validators.required
+        },
+        time: {
+            required: validators.required
+        }
+    }));
+
+    const $vReminder = computed(() => getValidation(reminderValidation, reminder.value));
+
+    return {
+        $vReminder, runFromValidation
+    }
+}
+
+export function useReprogramReminderValidation(reminder: Ref<IReminder>) {
+    const reminderValidation = computed(() => ({
+        day: {
+            required: validators.required
+        },
+        time: {
             required: validators.required
         }
     }));

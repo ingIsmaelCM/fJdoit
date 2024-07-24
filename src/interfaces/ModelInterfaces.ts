@@ -216,10 +216,6 @@ export enum ENutrientKey {
     cholesterol = "Colesterol",
 }
 
-export enum EReminderType {
-    recurrent = "Recurrente",
-    oneTime = "Único"
-}
 
 export enum EReminderStatus {
     pending = "Pendiente",
@@ -229,12 +225,12 @@ export enum EReminderStatus {
 export interface IReminder extends ICommonField {
     title: string;
     description: string;
-    tags: string;
-    type: EReminderType;
+    tags: string|string[];
     status: EReminderStatus;
     dueAt: string;
     day: any;
     time: any;
-    dayName: string;
     doneAt: Date;
+    patientId?: string;
+    patient?:IPatient
 }
