@@ -155,7 +155,7 @@ export default class QueryService {
 
   replaceFilter(
     column: string,
-    value: string | number | boolean,
+    value: string | number | boolean |any,
     operator: string = "eq",
     union: string = "and"
   ) {

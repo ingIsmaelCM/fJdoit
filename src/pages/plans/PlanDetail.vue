@@ -64,8 +64,8 @@ const items = ref([
 
 onMounted(async () => {
   const patientId = route.params.id;
-  const data = await getData(patientId);
-  planData.value = data.data;
+  const data = await getData(patientId as any);
+  planData.value = data.data as any;
   patient.value = data.patient
 })
 </script>

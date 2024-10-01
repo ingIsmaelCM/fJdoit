@@ -10,6 +10,5 @@
 <script setup lang="ts">
 
 import CreateReminder from "@/components/reminders/CreateReminder.vue";
-import {ref, Ref} from "vue";
 
 </script>

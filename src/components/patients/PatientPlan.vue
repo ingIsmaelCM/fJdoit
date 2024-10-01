@@ -23,15 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import {useExportPlan} from "@/services/plans";
 
 interface IProps {
   plans: any[]
 }
-
-
-
 defineProps<IProps>()
 
-const {exportPdf} = useExportPlan();
 </script>

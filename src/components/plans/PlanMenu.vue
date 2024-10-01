@@ -40,7 +40,7 @@ interface IProps{
 }
 
 
-const props=defineProps<IProps>();
+defineProps<IProps>();
 function getOld(dob: string): string {
   if (!dob) return "N/D"
   return moment().diff(moment(dob, 'YYYY-MM-DD'), 'years') + " años";

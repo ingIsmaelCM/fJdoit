@@ -7,7 +7,7 @@ import moment from "moment-timezone";
 import {EAxiosVerb} from "@/interfaces/AppInterfaces.ts";
 
 
-export function useSetReminder(emit: (arg: string) => void) {
+export function useSetReminder(emit?: (arg: string) => void) {
     const reminderRepo = new ReminderRepository();
     const reminderFormatter = new ReminderFormatter();
     const reminder: Ref<IReminder> = ref(reminderFormatter.init());
@@ -30,7 +30,7 @@ export function useSetReminder(emit: (arg: string) => void) {
             const newData = formattReminder();
             await reminderRepo.save(newData);
             reminder.value = reminderFormatter.init();
-            emit("reminderCreated")
+            emit && emit("reminderCreated")
         })
     }
 
@@ -39,7 +39,7 @@ export function useSetReminder(emit: (arg: string) => void) {
         await runFromValidation($vReprogramReminder.value, async () => {
             const newData = {...formattReminder(), moveDate: moveDateOnReprogram.value};
             await reminderRepo.custom(`reminders/${reminderId}/reprogram`, EAxiosVerb.Put, newData);
-            emit("reminderReprogrammed")
+            emit && emit("reminderReprogrammed")
         })
     }
 
@@ -47,7 +47,7 @@ export function useSetReminder(emit: (arg: string) => void) {
         await runFromValidation($vReminder.value, async () => {
             const newData = formattReminder();
             await reminderRepo.update(newData.id, newData);
-            emit("reminderUpdated")
+            emit && emit("reminderUpdated")
         })
     }
 

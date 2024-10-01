@@ -61,7 +61,7 @@ if (props.planData.length === 0) {
   dataset = [1, 1, 1, 1]
 }
 const labels = ["Proteínas", "Grasas", "Carbohidratos", "Calorías"];
-const promedio = Object.values(dataset).map((dSet: number, index: number) => {
+const promedio = Object.values(dataset).map((dSet: any, index: number) => {
   return {
     prom: Number((dSet / props.planData.length).toFixed(2)),
     label: labels[index]
@@ -81,7 +81,7 @@ const data = computed(() => {
     labels: labels,
     datasets: [
       {
-        data: Object.values(dataset).map((n: number) => n.toFixed(2)),
+        data: Object.values(dataset).map((n: any) => n.toFixed(2)),
         backgroundColor: ["#0D2E3AFF", "#0484ac", "#067889", "#5494ac"],
         hoverBackgroundColor: ["rgba(5,27,33,0.75)", "rgba(13,46,58,0.75)", "rgba(6,120,137,0.75)", "rgba(84,148,172,0.75)"]
       }

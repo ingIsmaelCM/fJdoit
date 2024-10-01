@@ -64,7 +64,7 @@ export function useSetPlan() {
                     maxFoods: 3,
                     days: Object.keys(EPlanDay).filter((d: string) => !["D", "S"].includes(d)),
                     notes: {}
-                }
+                } as any
             })
         }).then()
     }

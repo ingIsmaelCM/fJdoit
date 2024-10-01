@@ -225,7 +225,7 @@ export enum EReminderStatus {
 export interface IReminder extends ICommonField {
     title: string;
     description: string;
-    tags: string|string[];
+    tags: any;
     status: EReminderStatus;
     dueAt: string;
     day: any;

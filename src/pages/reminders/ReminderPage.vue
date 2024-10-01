@@ -1,7 +1,7 @@
 <template>
   <div class="p-2">
     <TableWrapper :data="reminders" :query="query" :formatter="reminderFormatter" :method="getReminders"
-                  title="Recordatorios Agendados" :key="id">
+                  title="Recordatorios Agendados" :key="key">
       <template #addButton>
         <CustomDialog title="Registro de recordatorio">
 
@@ -10,13 +10,13 @@
               <Icon icon="ic:round-add-task" class="text-xl "/>
             </Button>
           </template>
-          <CreateReminder @reminderCreated="getReminders"/>
+          <CreateReminder @reminderCreated="()=>key++"/>
         </CustomDialog>
       </template>
       <template #before>
         <el-table-column width="40">
           <template #default="{row}">
-            <ReprogramReminder @reminderReprogrammed="getReminders" :oldReminder="row"/>
+            <ReprogramReminder @reminderReprogrammed="()=>key++" :oldReminder="row"/>
           </template>
         </el-table-column>
       </template>
@@ -58,7 +58,7 @@
             <div class="flex justify-end items-center space-x-2 ">
               <template v-if="!row.deletedAt">
                 <ReminderDetail :reminder="row"/>
-                <EditReminder :key="row.id" :old-reminder="row" @reminderUpdated="getReminders"/>
+                <EditReminder :key="row.id" :old-reminder="row" @reminderUpdated="()=>key++"/>
                 <el-popconfirm width="300" title="¿Desea eliminar este registro?" @confirm="()=>deleteReminder(row.id)">
                   <template #reference>
                     <button class="  !bg-transparent   !border-none" circle title="Eliminar">
@@ -99,7 +99,7 @@ import ReprogramReminder from "@/components/reminders/ReprogramReminder.vue";
 
 const {reminders, query, reminderFormatter, getReminders} = useGetReminder();
 const {changeStatus} = useSetReminder();
-const {id, deleteReminder} = useUnsetReminder();
+const {key, deleteReminder} = useUnsetReminder();
 
 const onChangeStatus = async (reminderId: string, status: EReminderStatus) => {
   await changeStatus(reminderId, status);

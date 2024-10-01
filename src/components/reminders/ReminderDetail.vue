@@ -43,6 +43,6 @@ import moment from "moment";
 interface  IProps{
   reminder: IReminder
 }
-const props=defineProps<IProps>()
+defineProps<IProps>()
 
 </script>

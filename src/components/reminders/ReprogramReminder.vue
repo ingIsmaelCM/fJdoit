@@ -1,10 +1,9 @@
 <template>
   <CustomDialog title="Reprogramar Recordatorio" class="!w-[17rem]"
                 :disabled="reminder.status===EReminderStatus.canceled">
-
     <template #button>
       <Button severity="contrast"
-              title="Reprogramar Recordatorio">
+              v-tooltip.top="'Reprogramar Recordatorio'">
         <Icon icon="mdi:reload" class="text-xl "/>
       </Button>
     </template>
@@ -52,7 +51,7 @@ const {onConfirmSubmit} = useConfirmService()
 const emit = defineEmits(["reminderReprogrammed"])
 
 const {reminder, moveDateOnReprogram, $vReprogramReminder, reprogramReminder} =
-    useSetReminder(emit)
+    useSetReminder(emit as any)
 
 const initData = () => {
   reminder.value = {

@@ -71,7 +71,7 @@ const props = defineProps<IProps>()
 
 const {onConfirmSubmit} = useConfirmService()
 const emit = defineEmits(["reminderUpdated"])
-const {reminder, $vReminder, updateReminder} = useSetReminder(emit);
+const {reminder, $vReminder, updateReminder} = useSetReminder(emit as any);
 const {patients, query: patQuery, getPatients} = useGetPatients();
 
 const onSearchPatient = async ({value}: { value: string }) => {

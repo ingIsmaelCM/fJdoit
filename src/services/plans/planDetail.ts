@@ -13,7 +13,7 @@ export function usePlanDetail() {
     const patient: Ref<any> = ref({});
     const currentCaption = ref("Plan Nutricional");
 
-    const getData = async (patientId: string, types?: string[]) => {
+    const getData = async (patientId: string) => {
         query.replaceFilter("patientId", patientId).limit(100)
             .replaceFilter("day", Object.values(EPlanDay)
                 .filter((d: any) => d !== EPlanDay.D && d !== EPlanDay.S), "in", "and")
@@ -60,7 +60,7 @@ export function usePlanDetail() {
     const generatePlanImage = async () => {
         const planMenu = document.querySelector(`#planMenu`);
         planMenu?.classList.add("ready-fix");
-        const canvas = await html2canvas(planMenu, {
+        const canvas = await html2canvas(planMenu as HTMLElement, {
             allowTaint: true,
             useCORS: true,
             scale: window.devicePixelRatio,
@@ -80,7 +80,7 @@ export function usePlanDetail() {
     }
     const downloadPlan = async () => {
         const file = await generatePlanImage();
-        const url = URL.createObjectURL(file);
+        const url = URL.createObjectURL(file as Blob);
         const link = document.createElement('a');
         link.href = url;
         link.download = `${patient.value.fullname}_${currentCaption.value}`;

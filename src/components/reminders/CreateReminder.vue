@@ -64,7 +64,7 @@ import {onMounted} from "vue";
 
 const {onConfirmSubmit} = useConfirmService()
 const emit=defineEmits(["reminderCreated"])
-const {reminder, $vReminder, createReminder} = useSetReminder(emit);
+const {reminder, $vReminder, createReminder} = useSetReminder(emit as any);
 const {patients, query: patQuery, getPatients} = useGetPatients();
 
 const onSearchPatient = async ({value}: { value: string }) => {
